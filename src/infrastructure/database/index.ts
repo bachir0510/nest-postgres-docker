@@ -1,1 +1,1 @@
-export {Environment} from "./database.environment"
+export { Environment } from './database.environment';

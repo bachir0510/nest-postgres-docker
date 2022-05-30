@@ -15,7 +15,6 @@ import { ControllerV1Module } from '../src/app/controllers/v1/controller.v1.modu
 import { ErrorFilter } from '../src/app/filters/error.filter';
 import { ContextService } from '../src/app/logging';
 
-
 interface ITestsAppModule {
   mulesoftClientToUse?: any;
   gigyaClientToUse?: any;

@@ -1,12 +1,11 @@
 import { createConnection } from 'typeorm';
 import * as path from 'path';
 
-
 export const databaseProviders = [
   {
     provide: 'DATABASE_CONNECTION',
     useFactory: async () => {
-      const fn = await createConnection ({
+      const fn = await createConnection({
         type: 'postgres',
         host: 'localhost',
         port: 5432,
@@ -18,9 +17,6 @@ export const databaseProviders = [
       });
       console.log(__dirname + '/../../**/*.entity{.ts,.js}');
       return fn;
-
     },
   },
 ];
-
-

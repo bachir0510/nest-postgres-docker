@@ -10,7 +10,6 @@ import { BaseExceptionFilter } from '@nestjs/core';
 import { ApiErrors, DomainError } from '../../domain/dto/error/type.error';
 import { CustomLogger } from '../logging';
 
-
 @Catch()
 export class ErrorFilter extends BaseExceptionFilter {
   private stringify = require('fast-json-stable-stringify');

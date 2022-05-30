@@ -1,4 +1,3 @@
-
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import stringify from 'fast-json-stable-stringify';
 import { ApiErrors, IDomainError } from './type.error';

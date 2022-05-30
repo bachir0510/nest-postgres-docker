@@ -10,18 +10,20 @@ import {
 import { CreateStudentDTO } from '../../../../domain/dto/student/createStudent.dto';
 import { UpdateStudentDTO } from '../../../../domain/dto/student/updateStudent.dto';
 
-import { CreatStudent, GetSutdents} from '../../../../domain/use_cases/student';
+import {
+  CreatStudent,
+  GetSutdents,
+} from '../../../../domain/use_cases/student';
 
 @Controller('student')
 export class StudentController {
   constructor(
     private readonly getSudents: GetSutdents,
     private readonly createStudent: CreatStudent,
-   
   ) {}
 
   @Get()
-  async getAll()  {
+  async getAll() {
     return await this.getSudents.call();
   }
 

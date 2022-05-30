@@ -1,25 +1,25 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Student {
-    @PrimaryGeneratedColumn('increment')
-    id: number;
- 
-    @Column()
-    nia: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
-    @Column()
-    name: string;
+  @Column()
+  nia: string;
 
-    @Column()
-    lastName: string;
+  @Column()
+  name: string;
 
-    @Column()
-    motherName: string;
+  @Column()
+  lastName: string;
 
-    @Column()
-    group: string;
+  @Column()
+  motherName: string;
 
-    @Column()
-    class: string;
+  @Column()
+  group: string;
+
+  @Column()
+  class: string;
 }
