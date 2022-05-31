@@ -7,8 +7,7 @@ import {
   Logger,
   UnprocessableEntityException,
   Module,
-  NestModule,
-  MiddlewareConsumer,
+  
 } from '@nestjs/common';
 import * as ContextStore from 'request-context';
 import { ControllerV1Module } from '../src/app/controllers/v1/controller.v1.module';

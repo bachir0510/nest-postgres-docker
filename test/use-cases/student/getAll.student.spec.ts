@@ -1,6 +1,5 @@
 import { Test } from '@nestjs/testing';
 import { Connection } from 'typeorm';
-import { Student } from '../../../src/domain/entitys/student.entity';
 import { GetStudents } from '../../../src/domain/use_cases/student';
 import { testsAppModule } from '../../test.app.module.factory';
 
@@ -29,11 +28,11 @@ describe('StudentController', () => {
   });
 
   it('Get all Students', async () => {
-    const result = ['students'] ;
-    const getAllStudentSpy = jest
+    const result = [] ;
+    jest
       .spyOn(service, 'call')
-      .mockImplementation(() => Promise.resolve(result[]));
+      .mockImplementation(() => Promise.resolve(result));
 
-    expect(getAllStudentSpy).toBe(result);
+    expect(await service.call()).toBe(result);
   });
 });
