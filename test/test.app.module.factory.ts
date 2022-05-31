@@ -14,6 +14,7 @@ import * as ContextStore from 'request-context';
 import { ControllerV1Module } from '../src/app/controllers/v1/controller.v1.module';
 import { ErrorFilter } from '../src/app/filters/error.filter';
 import { ContextService } from '../src/app/logging';
+import { databaseProvidersTest } from './infrastructure/database.providers';
 
 interface ITestsAppModule {
   mulesoftClientToUse?: any;
@@ -23,11 +24,9 @@ interface ITestsAppModule {
 
 @Module({
   imports: [ControllerV1Module],
-  providers: [],
+  providers: [...databaseProvidersTest],
 })
-export class TestModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {}
-}
+export class TestModule {}
 
 // express for use in e2e
 export const testsAppModule = async ({}: ITestsAppModule = {}): Promise<
@@ -43,8 +42,8 @@ export const testsAppModule = async ({}: ITestsAppModule = {}): Promise<
     providers: [],
   }).compile();
 
-  jest.spyOn(Logger, 'log').mockImplementation(() => {});
-  jest.spyOn(Logger, 'error').mockImplementation(() => {});
+  jest.spyOn(Logger, 'log').mockImplementation(() => ({}));
+  jest.spyOn(Logger, 'error').mockImplementation(() => ({}));
 
   const app = nestModule.createNestApplication();
   const httpAdapter = app.getHttpAdapter();
