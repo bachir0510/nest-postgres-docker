@@ -1,5 +1,8 @@
-import { HttpModuleOptions, HttpModuleOptionsFactory, Injectable } from "@nestjs/common";
-
+import {
+  HttpModuleOptions,
+  HttpModuleOptionsFactory,
+  Injectable,
+} from '@nestjs/common';
 
 @Injectable()
 export class HttpConfigService implements HttpModuleOptionsFactory {

@@ -1,19 +1,34 @@
-FROM node:16.14.2-alpine AS base
+FROM node:16.14.2-alpine AS development
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY ./package.json ./package-lock.json /app/
+COPY package*.json ./
 
-FROM base AS dev
-ENV NODE_ENV=dev
-RUN npm install --frozen-lockfile
+RUN npm install glob rimraf
+
+RUN npm install --only=development
+
 COPY . .
-CMD ["npm", "run", "start:dev"]
 
-FROM base AS prod
-ENV NODE_ENV=production
-RUN npm install --frozen-lockfile --production
+RUN npm run build
+
+FROM node:16.14.2-alpine as production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install --only=production
+
 COPY . .
-RUN npm install global @nestjs/cli
-RUN npm build
-CMD ["npm", "run", "start:prod"]
+
+COPY --from=development /usr/src/app/dist ./dist
+
+RUN npm run build
+
+EXPOSE 8080
+
+CMD ["node", "dist/main"]

@@ -1,3 +1,3 @@
-import { CreateStudentDTO } from "./createStudent.dto";
+import { CreateStudentDTO } from './createStudent.dto';
 
-export class UpdateStudentDTO extends CreateStudentDTO{}
+export class UpdateStudentDTO extends CreateStudentDTO {}

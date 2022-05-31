@@ -7,21 +7,24 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateStudentDTO } from '../../../../domain/dto/student/createStudent.dto';
 import { UpdateStudentDTO } from '../../../../domain/dto/student/updateStudent.dto';
+import {
+  CreateStudent,
+  GetStudents,
+} from '../../../../domain/use_cases/student';
 
-import { CreatStudent, GetSutdents} from '../../../../domain/use_cases/student';
-
+@ApiTags('Student')
 @Controller('student')
 export class StudentController {
   constructor(
-    private readonly getSudents: GetSutdents,
-    private readonly createStudent: CreatStudent,
-   
+    private readonly createStudent: CreateStudent,
+    private readonly getSudents: GetStudents,
   ) {}
 
   @Get()
-  async getAll()  {
+  async getAll() {
     return await this.getSudents.call();
   }
 
