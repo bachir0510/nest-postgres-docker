@@ -1,6 +1,7 @@
-import { Test} from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
+import { CreateStudentDTO } from '../../../src/domain/dto/student/createStudent.dto';
 import { Student } from '../../../src/domain/entitys/student.entity';
 import { CreateStudent } from '../../../src/domain/use_cases/student';
 import { testsAppModule } from '../../test.app.module.factory';
@@ -44,22 +45,11 @@ describe('StudentController', () => {
     expect(service).toBeDefined();
   });
 
-  it('should create a new student and return that', async () => {
-    const dto = {
-      nia: '1111',
-      name: 'Juan',
-      lastName: 'ParaJuan',
-      motherName: 'MamaJuan',
-      group: '1',
-      classGroup: 'a',
-    };
-    expect(await service.call(dto)).toEqual({
-      id: expect.any(Number),
-      name: dto.name,
-      lastName: dto.lastName,
-      motherName: dto.motherName,
-      group: dto.group,
-      classGroup: dto.classGroup,
-    });
+  it('should call saveNote method with expected params', async () => {
+    const createStudentSpy = jest.spyOn(service, 'call');
+    const dto = new CreateStudentDTO();
+    service.call(dto);
+    expect(createStudentSpy).toHaveBeenCalledWith(dto);
   });
+  
 });
