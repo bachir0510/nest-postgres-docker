@@ -15,7 +15,6 @@ export const databaseProviders = [
         entities: [path.resolve(__dirname + '/../../**/*.entity{.ts,.js}')],
         synchronize: true,
       });
-      console.log(__dirname + '/../../**/*.entity{.ts,.js}');
       return fn;
     },
   },
