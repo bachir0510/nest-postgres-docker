@@ -4,7 +4,7 @@ import { CreateStudentDTO } from '../../dto/student/createStudent.dto';
 import { Student } from '../../entitys/student.entity';
 
 @Injectable()
-export class CreatStudent {
+export class CreateStudent {
   constructor(
     @Inject(Student.name)
     private readonly studentRepository: Repository<Student>,

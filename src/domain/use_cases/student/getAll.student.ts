@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { Student } from '../../entitys/student.entity';
 
 @Injectable()
-export class GetSutdents {
+export class GetStudents {
   constructor(
     @Inject(Student.name)
     private readonly studentRepository: Repository<Student>,

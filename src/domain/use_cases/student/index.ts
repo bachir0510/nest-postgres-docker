@@ -1,2 +1,2 @@
-export { GetSutdents } from './getAll.student';
-export { CreatStudent } from './create.student';
+export { GetStudents } from './getAll.student';
+export { CreateStudent } from './create.student';
