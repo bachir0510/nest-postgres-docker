@@ -10,8 +10,16 @@ export class CreateStudent {
     private readonly studentRepository: Repository<Student>,
   ) {}
 
-  async call(studentDTO: CreateStudentDTO) {
+  async call(studentDTO: CreateStudentDTO): Promise<CreateStudentDTO> {
     const createStudent = this.studentRepository.create(studentDTO);
-    return await this.studentRepository.save(createStudent);
+    const entitySaved = await this.studentRepository.save(createStudent);
+    return {
+      name: entitySaved.name,
+      nia: entitySaved.nia,
+      classGroup: entitySaved.classGroup,
+      group: entitySaved.group,
+      lastName: entitySaved.lastName,
+      motherName: entitySaved.motherName,
+    };
   }
 }
