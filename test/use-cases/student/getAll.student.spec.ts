@@ -5,11 +5,11 @@ import { testsAppModule } from '../../test.app.module.factory';
 
 describe('StudentController', () => {
   let database: Connection;
-  let service: GetStudents;
+  let getStudents: GetStudents;
 
   beforeAll(async () => {
     const [nestModule] = await testsAppModule();
-    service = nestModule.get(GetStudents);
+    getStudents = nestModule.get(GetStudents);
     database = nestModule.get('DATABASE_CONNECTION');
   });
 
@@ -24,15 +24,14 @@ describe('StudentController', () => {
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(getStudents).toBeDefined();
   });
 
-  it('Get all Students', async () => {
-    const result = [] ;
+  it('Get all Students empty', async () => {
+    const result = [];
     jest
-      .spyOn(service, 'call')
+      .spyOn(getStudents, 'call')
       .mockImplementation(() => Promise.resolve(result));
-
-    expect(await service.call()).toBe(result);
+    expect(await getStudents.call()).toBe(result);
   });
 });

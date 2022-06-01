@@ -1,27 +1,15 @@
-import { Test } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Connection, Repository } from 'typeorm';
+import { Connection } from 'typeorm';
 import { CreateStudentDTO } from '../../../src/domain/dto/student/createStudent.dto';
-import { Student } from '../../../src/domain/entitys/student.entity';
 import { CreateStudent } from '../../../src/domain/use_cases/student';
 import { testsAppModule } from '../../test.app.module.factory';
 
 describe('StudentController', () => {
   let database: Connection;
-  let service: CreateStudent;
-
-  const mockStudentRepository = {
-    create: jest.fn().mockImplementation((dto) => dto),
-    save: jest
-      .fn()
-      .mockImplementation((student) =>
-        Promise.resolve({ id: Date.now(), ...student }),
-      ),
-  };
+  let createStudent: CreateStudent;
 
   beforeAll(async () => {
     const [nestModule] = await testsAppModule();
-    service = nestModule.get(CreateStudent);
+    createStudent = nestModule.get(CreateStudent);
     database = nestModule.get('DATABASE_CONNECTION');
   });
 
@@ -29,27 +17,38 @@ describe('StudentController', () => {
     database.close();
   });
 
-  beforeEach(async () => {
-    Test.createTestingModule({
-      providers: [
-        CreateStudent,
-        {
-          provide: getRepositoryToken(Student),
-          useValue: mockStudentRepository,
-        },
-      ],
-    });
-  });
-
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(createStudent).toBeDefined();
   });
 
   it('should call saveNote method with expected params', async () => {
-    const createStudentSpy = jest.spyOn(service, 'call');
+    const createStudentSpy = jest.spyOn(createStudent, 'call');
     const dto = new CreateStudentDTO();
-    service.call(dto);
+    dto.nia = 'string';
+    dto.name = 'string';
+    dto.lastName = 'string';
+    dto.classGroup = 'string';
+    dto.motherName = 'string';
+    dto.group = 'string';
+    await createStudent.call(dto);
     expect(createStudentSpy).toHaveBeenCalledWith(dto);
   });
-  
+
+  it('should create one student', async () => {
+    const dto: CreateStudentDTO = {
+      name: 'string',
+      nia: 'string',
+      classGroup: 'string',
+      group: 'string',
+      lastName: 'string',
+      motherName: 'string',
+    };
+    const response = await createStudent.call(dto);
+    expect(response.nia).toEqual(dto.nia);
+    expect(response.name).toEqual(dto.name);
+    expect(response.classGroup).toEqual(dto.classGroup);
+    expect(response.group).toEqual(dto.group);
+    expect(response.lastName).toEqual(dto.lastName);
+    expect(response.motherName).toEqual(dto.motherName);
+  });
 });
