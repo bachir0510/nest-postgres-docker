@@ -12,7 +12,10 @@ import { CreateStudentDTO } from '../../../../domain/dto/student/createStudent.d
 import { UpdateStudentDTO } from '../../../../domain/dto/student/updateStudent.dto';
 import {
   CreateStudent,
+  GetByIdStudent,
   GetStudents,
+  DeleteSutdent,
+  UpdateStudent,
 } from '../../../../domain/use_cases/student';
 
 @ApiTags('Student')
@@ -21,6 +24,9 @@ export class StudentController {
   constructor(
     private readonly createStudent: CreateStudent,
     private readonly getSudents: GetStudents,
+    private readonly getByIdSudent: GetByIdStudent,
+    private readonly upDataSudent: UpdateStudent,
+    private readonly deteStudent: DeleteSutdent,
   ) {}
 
   @Get()
@@ -28,23 +34,23 @@ export class StudentController {
     return await this.getSudents.call();
   }
 
-  //  @Get(':id')
-  // async getOne(@Param('id') id: number) {
-  //   return await this.getByIdStudent.call(id);
-  // }
+  @Get(':id')
+  async getOne(@Param('id') id: number) {
+    return await this.getByIdSudent.call(id);
+  }
 
   @Post()
   async create(@Body() studentDTO: CreateStudentDTO) {
     return await this.createStudent.call(studentDTO);
   }
 
-  // @Put(':id')
-  // async update(@Body() studentDTO: UpdateStudentDTO, @Param('id') id: number)  {
-  //   return await this.updateStudent.callDos(id, studentDTO);
-  // }
+  @Put(':id')
+  async update(@Body() studentDTO: UpdateStudentDTO, @Param('id') id: number) {
+    return await this.upDataSudent.call(id, studentDTO);
+  }
 
-  // @Delete(':id')
-  // delete(@Param('id') id: string) {
-  //   return this.deleteStudent.call(id);
-  // }
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.deteStudent.call(id);
+  }
 }
