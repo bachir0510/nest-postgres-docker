@@ -1,37 +1,43 @@
-import { Body } from '@nestjs/common';
-import { Connection } from 'typeorm';
+import { Connection, DeleteResult } from 'typeorm';
 import { StudentController } from '../../src/app/controllers/v1/student/student.controller';
 import { CreateStudentDTO } from '../../src/domain/dto/student/createStudent.dto';
+import { UpdateStudentDTO } from '../../src/domain/dto/student/updateStudent.dto';
 import { Student } from '../../src/domain/entitys/student.entity';
 import {
-  CreateStudent,
   DeleteSutdent,
   GetByIdStudent,
-  GetStudents,
   UpdateStudent,
 } from '../../src/domain/use_cases/student';
 import { testsAppModule } from '../test.app.module.factory';
 
 describe('StudentController', () => {
   let database: Connection;
-  let controller: StudentController;
-  let createStudent: CreateStudent;
-  let getStudents: GetStudents;
+  let controllerStudent: StudentController;
   let getByIdStudent: GetByIdStudent;
   let deleteSutdent: DeleteSutdent;
   let updateStudent: UpdateStudent;
 
-  const newStudentEntity = new Student();
+  const studentData: Student[] = [
+    {
+      id: 1,
+      nia: '151515',
+      name: 'Alberto',
+      lastName: 'PapaAlberto',
+      motherName: 'MamaAlberto',
+      group: '1',
+      classGroup: 'a',
+    },
+  ];
 
   beforeAll(async () => {
     const [nestModule] = await testsAppModule();
     database = nestModule.get('DATABASE_CONNECTION');
-    controller = nestModule.get(StudentController);
-    createStudent = nestModule.get(CreateStudent);
-    getStudents = nestModule.get(GetStudents);
+    controllerStudent = nestModule.get(StudentController);
     getByIdStudent = nestModule.get(GetByIdStudent);
     deleteSutdent = nestModule.get(DeleteSutdent);
     updateStudent = nestModule.get(UpdateStudent);
+
+    
   });
 
   afterAll(() => {
@@ -39,11 +45,11 @@ describe('StudentController', () => {
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(controllerStudent).toBeDefined();
   });
 
   it('Should create a new student ', async () => {
-    const dto: CreateStudentDTO = {
+    const createStudentDTO: CreateStudentDTO = {
       nia: '151515',
       name: 'Alberto',
       lastName: 'PapaAlberto',
@@ -51,20 +57,50 @@ describe('StudentController', () => {
       group: '1',
       classGroup: 'a',
     };
-
-    const result = await controller.create(dto);
-
-    expect(result).toEqual({
+    expect(await controllerStudent.create(createStudentDTO)).toEqual({
       id: expect.any(Number),
-      nia: dto.nia,
-      name: dto.name,
-      lastName: dto.lastName,
-      motherName: dto.motherName,
-      group: dto.group,
-      classGroup: dto.classGroup,
+      ...createStudentDTO,
     });
-   jest.spyOn(createStudent, 'call').mockImplementation(()=> Promise.resolve(result))
-   expect(createStudent.call).toHaveBeenCalledTimes(0)
-   expect(createStudent.call).toHaveBeenCalledWith(dto)
+  });
+
+  it('should find all student', async () => {
+    expect(await controllerStudent.getAll).toEqual(studentData);
+    expect(await typeof controllerStudent.getAll).toEqual('object')
+  });
+
+  it('should find student by id', async () => {
+    const studentId = 64;
+    expect(await controllerStudent.getOne(studentId)).toBe(studentId);
+    expect(await getByIdStudent.call).toHaveBeenCalledTimes(1);
+  });
+
+  it('Should update a student ', async () => {
+    const updateStudentDTO: UpdateStudentDTO = {
+      nia: '151515',
+      name: 'Alberto',
+      lastName: 'PapaAlberto',
+      motherName: 'MamaAlberto',
+      group: '1',
+      classGroup: 'a',
+    };
+    const id = 1;
+    expect(await controllerStudent.update(id, updateStudentDTO)).toEqual({
+      id: id,
+      ...updateStudentDTO,
+    });
+
+    const updateSpy = jest.spyOn(updateStudent, 'call');
+    controllerStudent.update(id, updateStudentDTO);
+    expect(updateSpy).toHaveBeenCalledWith(id, updateStudentDTO);
+  });
+
+  it('should delete a student by id ', async () => {
+    const mockDeleteStudent: DeleteResult = {
+      raw: [],
+      affected: 1,
+    };
+    expect((await controllerStudent.delete(1))['affected']).toEqual(
+      mockDeleteStudent,
+    );
   });
 });

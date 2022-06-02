@@ -4,15 +4,14 @@ import { CreateStudentDTO } from '../../../src/domain/dto/student/createStudent.
 import { GetStudents } from '../../../src/domain/use_cases/student';
 import { testsAppModule } from '../../test.app.module.factory';
 
-
-const studentData ={
-  nia: 'string',
-  name: 'string',
-  lastName: 'string',
-  motherName: 'string',
-  group: 'string',
-  classGroup: 'string',
-}
+const studentData = {
+  nia: '151515',
+  name: 'Alberto',
+  lastName: 'PapaAlberto',
+  motherName: 'MamaAlberto',
+  group: '1',
+  classGroup: 'a',
+};
 
 describe('StudentController', () => {
   let database: Connection;
@@ -39,11 +38,8 @@ describe('StudentController', () => {
   });
 
   it('Get all Students', async () => {
-    const result:CreateStudentDTO[] = [studentData] ;
-    jest
-      .spyOn(getStudent, 'call')
-      .mockImplementation(() => Promise.resolve(result));
-
-    expect(await getStudent.call()).toBe(result);
+    it('should find all solicitudes', async () => { 
+      expect(await getStudent.call()).toEqual([studentData]);
+    });
   });
 });

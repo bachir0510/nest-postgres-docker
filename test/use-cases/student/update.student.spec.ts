@@ -3,11 +3,11 @@ import { UpdateStudentDTO } from '../../../src/domain/dto/student/updateStudent.
 import { UpdateStudent } from '../../../src/domain/use_cases/student';
 import { testsAppModule } from '../../test.app.module.factory';
 
-const dto: UpdateStudentDTO = {
-  nia: '1111',
-  name: 'Juan',
-  lastName: 'ParaJuan',
-  motherName: 'MamaJuan',
+const updateDto: UpdateStudentDTO = {
+  nia: '151515',
+  name: 'Alberto',
+  lastName: 'PapaAlberto',
+  motherName: 'MamaAlberto',
   group: '1',
   classGroup: 'a',
 };
@@ -20,7 +20,7 @@ describe('StudentController', () => {
     const [nestModule] = await testsAppModule();
     database = nestModule.get('DATABASE_CONNECTION');
     updateStudent = nestModule.get(UpdateStudent);
-});
+  });
 
   afterAll(() => {
     database.close();
@@ -30,10 +30,10 @@ describe('StudentController', () => {
     expect(updateStudent).toBeDefined();
   });
 
-  // it('should update a student', async () => {
-  //   expect(await updateStudent.call(1, dto)).toEqual({
-  //     id: 1,
-  //     ...dto,
-  //   });
-  // });
+  it('should update a student', async () => {
+    expect(await updateStudent.call(1, updateDto)).toEqual({
+      id: 1,
+      ...updateDto,
+    });
+  });
 });

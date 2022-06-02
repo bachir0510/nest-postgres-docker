@@ -1,15 +1,7 @@
 import { Connection } from 'typeorm';
+import { CreateStudentDTO } from '../../../src/domain/dto/student/createStudent.dto';
 import { CreateStudent } from '../../../src/domain/use_cases/student';
 import { testsAppModule } from '../../test.app.module.factory';
-
-const dto = {
-  nia: '1111',
-  name: 'Juan',
-  lastName: 'ParaJuan',
-  motherName: 'MamaJuan',
-  group: '1',
-  classGroup: 'a',
-};
 
 describe('StudentController', () => {
   let database: Connection;
@@ -29,15 +21,18 @@ describe('StudentController', () => {
     expect(createStudent).toBeDefined();
   });
 
-  it('should create a new student and return that', async () => {
-    expect(await createStudent.call(dto)).toEqual({
+  it('should create a student', async () => {
+    const createStudentDto: CreateStudentDTO = {
+      nia: '151515',
+      name: 'Alberto',
+      lastName: 'PapaAlberto',
+      motherName: 'MamaAlberto',
+      group: '1',
+      classGroup: 'a',
+    };
+    expect(await createStudent.call(createStudentDto)).toEqual({
       id: expect.any(Number),
-      nia: dto.nia,
-      name: dto.name,
-      lastName: dto.lastName,
-      motherName: dto.motherName,
-      group: dto.group,
-      classGroup: dto.classGroup,
+      ...createStudentDto,
     });
   });
 });

@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { CreateStudentDTO } from '../../dto/student/createStudent.dto';
 import { Student } from '../../entitys/student.entity';
 
 @Injectable()
@@ -10,7 +9,7 @@ export class GetStudents {
     private readonly studentRepository: Repository<Student>,
   ) {}
 
-  async call(): Promise<CreateStudentDTO[]> {
+  async call(): Promise<Student[]> {
     return await this.studentRepository.find();
   }
 }

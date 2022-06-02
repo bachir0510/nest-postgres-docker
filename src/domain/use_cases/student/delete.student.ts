@@ -9,12 +9,10 @@ export class DeleteSutdent {
     private readonly studentRepository: Repository<Student>,
   ) {}
 
-  async call(id) : Promise<void>{
+  async call(id) : Promise<any>{
     const student = await this.studentRepository.findOne(id);
-    if (!student) {
-      throw new NotFoundException('Resource not found');
-    }
-
-    this.studentRepository.remove(student);
+   const removeStudent = await this.studentRepository.remove(student);
+    
+   return removeStudent[0]
   }
 }

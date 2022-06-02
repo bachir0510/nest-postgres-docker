@@ -16,7 +16,7 @@ export class Student {
 
   @Column()
   motherName: string;
-
+ 
   @Column()
   group: string;
 

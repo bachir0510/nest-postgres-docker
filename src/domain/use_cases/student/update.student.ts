@@ -12,6 +12,7 @@ export class UpdateStudent {
 
     
     async call(id: number, studentDTO: UpdateStudentDTO){
-      return this.studentRepository.update(id, studentDTO)
+    return this.studentRepository.update(id, studentDTO)
+    
     }
 }
