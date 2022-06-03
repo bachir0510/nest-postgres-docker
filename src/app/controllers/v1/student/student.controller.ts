@@ -47,7 +47,7 @@ export class StudentController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() studentDTO: UpdateStudentDTO){
+  async update(@Param('id') id: number, @Body() studentDTO: UpdateStudentDTO) {
     return await this.upDataSudent.call(+id, studentDTO);
   }
 

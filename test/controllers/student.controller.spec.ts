@@ -36,8 +36,6 @@ describe('StudentController', () => {
     getByIdStudent = nestModule.get(GetByIdStudent);
     deleteSutdent = nestModule.get(DeleteSutdent);
     updateStudent = nestModule.get(UpdateStudent);
-
-    
   });
 
   afterAll(() => {
@@ -65,7 +63,7 @@ describe('StudentController', () => {
 
   it('should find all student', async () => {
     expect(await controllerStudent.getAll).toEqual(studentData);
-    expect(await typeof controllerStudent.getAll).toEqual('object')
+    expect(await typeof controllerStudent.getAll).toEqual('object');
   });
 
   it('should find student by id', async () => {

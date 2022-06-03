@@ -29,7 +29,7 @@ describe('StudentController (e2e)', () => {
       const response = await request(appTest.getHttpServer())
         .post('/student')
         .send(newStudent);
-        
+
       expect(response.status).toBe(201);
       expect(typeof response.body).toBe('object');
     } catch (err) {

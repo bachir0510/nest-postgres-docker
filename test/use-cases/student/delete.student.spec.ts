@@ -1,15 +1,13 @@
 import { Test } from '@nestjs/testing';
 import { Connection, Repository } from 'typeorm';
 import { Student } from '../../../src/domain/entitys/student.entity';
-import { DeleteSutdent} from '../../../src/domain/use_cases/student';
+import { DeleteSutdent } from '../../../src/domain/use_cases/student';
 import { testsAppModule } from '../../test.app.module.factory';
-
-
 
 describe('StudentController', () => {
   let database: Connection;
   let deleteStudent: DeleteSutdent;
-  let studentRepostory: Repository<Student>
+  let studentRepostory: Repository<Student>;
 
   beforeAll(async () => {
     const [nestModule] = await testsAppModule();
@@ -32,7 +30,6 @@ describe('StudentController', () => {
   });
 
   it('should delete a student', async () => {
-   expect( deleteStudent.call(1)).toBeDefined;
-  })
-  
+    expect(deleteStudent.call(1)).toBeDefined;
+  });
 });

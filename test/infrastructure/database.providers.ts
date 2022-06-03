@@ -10,7 +10,6 @@ export const databaseProvidersTest = [
         database: ':memory:',
         entities: ['src/entity/**/*.ts'],
         synchronize: true,
-        
       });
       return fn;
     },

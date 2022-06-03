@@ -3,8 +3,6 @@ import { Connection, FindOneOptions } from 'typeorm';
 import { GetByIdStudent } from '../../../src/domain/use_cases/student';
 import { testsAppModule } from '../../test.app.module.factory';
 
-
-
 describe('StudentController', () => {
   let database: Connection;
   let getByIdStudent: GetByIdStudent;
@@ -28,6 +26,4 @@ describe('StudentController', () => {
   it('should be defined', () => {
     expect(GetByIdStudent).toBeDefined();
   });
-
-  
 });
