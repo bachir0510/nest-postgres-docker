@@ -32,7 +32,7 @@ export class StudentController {
   ) {}
 
   @Get()
-  async getAll() {
+  async getAll(): Promise<Student[]> {
     return await this.getSudents.call();
   }
 

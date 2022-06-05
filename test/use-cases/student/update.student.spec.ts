@@ -1,25 +1,19 @@
-import { Connection } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 import { UpdateStudentDTO } from '../../../src/domain/dto/student/updateStudent.dto';
+import { Student } from '../../../src/domain/entitys/student.entity';
 import { UpdateStudent } from '../../../src/domain/use_cases/student';
 import { testsAppModule } from '../../test.app.module.factory';
-
-const updateDto: UpdateStudentDTO = {
-  nia: '151515',
-  name: 'Alberto',
-  lastName: 'PapaAlberto',
-  motherName: 'MamaAlberto',
-  group: '1',
-  classGroup: 'a',
-};
 
 describe('StudentController', () => {
   let database: Connection;
   let updateStudent: UpdateStudent;
+  let studentRepository: Repository<Student>;
 
   beforeAll(async () => {
     const [nestModule] = await testsAppModule();
     database = nestModule.get('DATABASE_CONNECTION');
     updateStudent = nestModule.get(UpdateStudent);
+    studentRepository = nestModule.get(Student.name);
   });
 
   afterAll(() => {
@@ -30,10 +24,20 @@ describe('StudentController', () => {
     expect(updateStudent).toBeDefined();
   });
 
-  it('should update a student', async () => {
-    expect(await updateStudent.call(1, updateDto)).toEqual({
-      id: 1,
-      ...updateDto,
+  describe('Update', () => {
+    const studentId = 1;
+    it('should update a student', async () => {
+      const studentDto: UpdateStudentDTO = {
+        nia: '151515',
+        name: 'Alberto',
+        lastName: 'PapaAlberto',
+        motherName: 'MamaAlberto',
+        group: '1',
+        classGroup: 'a',
+      };
+      const updateSpy = jest.spyOn(studentRepository, 'update');
+      await updateStudent.call(studentId, studentDto);
+      expect(updateSpy).toHaveBeenCalledWith(studentId, studentDto);
     });
   });
 });

@@ -41,7 +41,7 @@ describe('GetStudents', () => {
       classGroup: 'a',
       id: expect.any(Number),
     };
-    it('should find all solicitudes', async () => {
+    it('should find all students', async () => {
       const entity: Student = {
         nia: '151515',
         name: 'Alberto',

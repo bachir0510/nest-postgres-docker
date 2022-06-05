@@ -9,7 +9,7 @@ export class GetByIdStudent {
     private readonly studentRepository: Repository<Student>,
   ) {}
 
-  async call(id: number): Promise<Student> {
+  async call(id: number) {
     return await this.studentRepository.findOne(id);
   }
 }

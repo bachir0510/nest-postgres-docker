@@ -7,12 +7,13 @@ import { testsAppModule } from '../../test.app.module.factory';
 describe('StudentController', () => {
   let database: Connection;
   let deleteStudent: DeleteSutdent;
-  let studentRepostory: Repository<Student>;
+  let studentRepository: Repository<Student>;
 
   beforeAll(async () => {
     const [nestModule] = await testsAppModule();
-    deleteStudent = nestModule.get(DeleteSutdent);
     database = nestModule.get('DATABASE_CONNECTION');
+    deleteStudent = nestModule.get(DeleteSutdent);
+    studentRepository = nestModule.get(Student.name);
   });
 
   afterAll(() => {
@@ -29,7 +30,24 @@ describe('StudentController', () => {
     expect(deleteStudent).toBeDefined();
   });
 
-  it('should delete a student', async () => {
-    expect(deleteStudent.call(1)).toBeDefined;
+  describe('Delete', () => {
+    const studentId = 1;
+    const studentEntity: Student = {
+      nia: '151515',
+      name: 'Alberto',
+      lastName: 'PapaAlberto',
+      motherName: 'MamaAlberto',
+      group: '1',
+      classGroup: 'a',
+      id: 1,
+    };
+
+    it('should delete a student', async () => {
+      const deleteSpy = jest
+        .spyOn(studentRepository, 'remove')
+        .mockImplementationOnce(() => Promise.resolve(studentEntity));
+      await deleteStudent.call(studentId);
+      expect(deleteSpy).toHaveBeenCalledWith(studentId);
+    });
   });
 });
