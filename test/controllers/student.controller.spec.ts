@@ -10,6 +10,7 @@ import {
   GetStudents,
   UpdateStudent,
 } from '../../src/domain/use_cases/student';
+import { mockCreateStudentDto, mockStudentEntity, mockUpdateStudentDto } from '../studentData';
 import { testsAppModule } from '../test.app.module.factory';
 
 describe('StudentController', () => {
@@ -21,33 +22,7 @@ describe('StudentController', () => {
   let deleteStudent: DeleteSutdent;
   let updateStudent: UpdateStudent;
 
-  const mockCreateStudentDto: CreateStudentDTO = {
-    nia: '0000',
-    name: 'Alberto',
-    lastName: 'PapaAlberto',
-    motherName: 'MamaAlberto',
-    group: '1',
-    classGroup: 'a',
-  };
-
-  const mockUpdateStudentDto: UpdateStudentDTO = {
-    nia: '0000',
-    name: 'Alberto',
-    lastName: 'PapaAlberto',
-    motherName: 'MamaAlberto',
-    group: '1',
-    classGroup: 'a',
-  };
-
-  const mockStudentEntity: Student = {
-    id: 1,
-    nia: '0000',
-    name: 'Alberto',
-    lastName: 'PapaAlberto',
-    motherName: 'MamaAlberto',
-    group: '1',
-    classGroup: 'a',
-  };
+  
 
   beforeAll(async () => {
     const [nestModule] = await testsAppModule();
@@ -70,12 +45,11 @@ describe('StudentController', () => {
 
   describe('Create new Student', () => {
     it('should return a student on sccess', async () => {
-      const mockReturn = mockStudentEntity;
       jest
         .spyOn(createStudent, 'call')
-        .mockImplementationOnce(() => Promise.resolve(mockReturn));
+        .mockImplementationOnce(() => Promise.resolve(mockStudentEntity));
       const response = await controllerStudent.create(mockCreateStudentDto);
-      expect(response).toEqual(mockReturn);
+      expect(response).toEqual(mockStudentEntity);
     });
   });
 
