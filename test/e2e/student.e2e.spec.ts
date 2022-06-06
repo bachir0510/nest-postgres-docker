@@ -13,11 +13,10 @@ describe('StudentController (e2e)', () => {
     database = nestModule.get('DATABASE_CONNECTION');
   });
 
-  afterAll(() => {
-    database.close();
+  afterAll(async () => {
+    await database.close();
   });
 
-  
   it('/student (POST)', () => {
     return request(appTest.getHttpServer()).post('/student').expect(201);
   });
@@ -37,5 +36,4 @@ describe('StudentController (e2e)', () => {
   it('/student/:id (DELETE)', () => {
     return request(appTest.getHttpServer()).delete('/student/:id').expect(200);
   });
- 
 });

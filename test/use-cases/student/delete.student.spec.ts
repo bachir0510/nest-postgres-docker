@@ -1,4 +1,3 @@
-import { Test } from '@nestjs/testing';
 import { Connection, Repository } from 'typeorm';
 import { Student } from '../../../src/domain/entitys/student.entity';
 import { DeleteSutdent } from '../../../src/domain/use_cases/student';
@@ -16,14 +15,8 @@ describe('StudentController', () => {
     studentRepository = nestModule.get(Student.name);
   });
 
-  afterAll(() => {
-    database.close();
-  });
-
-  beforeEach(async () => {
-    Test.createTestingModule({
-      providers: [DeleteSutdent],
-    });
+  afterAll(async () => {
+    await database.close();
   });
 
   it('should be defined', () => {
@@ -43,11 +36,15 @@ describe('StudentController', () => {
     };
 
     it('should delete a student', async () => {
+      jest
+        .spyOn(studentRepository, 'findOne')
+        .mockImplementationOnce(() => Promise.resolve(studentEntity));
       const deleteSpy = jest
         .spyOn(studentRepository, 'remove')
         .mockImplementationOnce(() => Promise.resolve(studentEntity));
-      await deleteStudent.call(studentId);
-      expect(deleteSpy).toHaveBeenCalledWith(studentId);
+      const response = await deleteStudent.call(studentId);
+      expect(response).toEqual(studentEntity);
+      expect(deleteSpy).toHaveBeenCalledWith(studentEntity);
     });
   });
 });

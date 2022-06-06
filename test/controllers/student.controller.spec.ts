@@ -1,4 +1,4 @@
-import { Connection } from 'typeorm';
+import { Connection, UpdateResult } from 'typeorm';
 import { StudentController } from '../../src/app/controllers/v1/student/student.controller';
 import { CreateStudentDTO } from '../../src/domain/dto/student/createStudent.dto';
 import { UpdateStudentDTO } from '../../src/domain/dto/student/updateStudent.dto';
@@ -18,9 +18,9 @@ describe('StudentController', () => {
   let createStudent: CreateStudent;
   let getAllStudent: GetStudents;
   let getByIdStudent: GetByIdStudent;
-  let deleteSutdent: DeleteSutdent;
+  let deleteStudent: DeleteSutdent;
   let updateStudent: UpdateStudent;
- 
+
   const mockCreateStudentDto: CreateStudentDTO = {
     nia: '0000',
     name: 'Alberto',
@@ -56,12 +56,12 @@ describe('StudentController', () => {
     createStudent = nestModule.get(CreateStudent);
     getAllStudent = nestModule.get(GetStudents);
     getByIdStudent = nestModule.get(GetByIdStudent);
-    deleteSutdent = nestModule.get(DeleteSutdent);
+    deleteStudent = nestModule.get(DeleteSutdent);
     updateStudent = nestModule.get(UpdateStudent);
   });
 
-  afterAll(() => {
-    database.close();
+  afterAll(async () => {
+    await database.close();
   });
 
   it('should be defined', () => {
@@ -69,12 +69,6 @@ describe('StudentController', () => {
   });
 
   describe('Create new Student', () => {
-    it('Should call use case CreateStudent with correct values', async () => {
-      const mockParam = mockCreateStudentDto;
-      const createSpy = jest.spyOn(createStudent, 'call');
-      expect(controllerStudent.create(mockParam));
-      expect(createSpy).toHaveBeenCalledWith(mockParam);
-    });
     it('should return a student on sccess', async () => {
       const mockReturn = mockStudentEntity;
       jest
@@ -86,53 +80,59 @@ describe('StudentController', () => {
   });
 
   describe('Get all student', () => {
-    it('should call GetStudent', async () => {
-      const findSpy = jest.spyOn(getAllStudent, 'call');
-      expect(controllerStudent.getAll());
-      expect(findSpy).toHaveBeenCalled();
-    });
     it('should get all student', async () => {
       const mockReturn = [mockStudentEntity];
-      jest
+      const findSpy = jest
         .spyOn(getAllStudent, 'call')
         .mockImplementationOnce(() => Promise.resolve(mockReturn));
       const response = await controllerStudent.getAll();
       expect(response).toEqual(mockReturn);
+      expect(findSpy).toHaveBeenCalled();
     });
   });
 
   describe('Get By Id', () => {
-    it('should call a GetByIdStudent', async () => {
-      const studentId = 1;
-      const findByIdSpy = jest.spyOn(getByIdStudent, 'call');
-      await controllerStudent.getOne(studentId);
-      expect(findByIdSpy).toHaveBeenCalledWith(studentId);
-    });
     it('should find student by id', async () => {
       const studentId = 64;
       const mockReturn = mockStudentEntity;
-      jest
+      const findByIdSpy = jest
         .spyOn(getByIdStudent, 'call')
         .mockImplementationOnce(() => Promise.resolve(mockReturn));
       expect(await controllerStudent.getOne(studentId)).toEqual(mockReturn);
+      expect(findByIdSpy).toHaveBeenCalledWith(studentId);
     });
   });
 
   describe('Update Student', () => {
     it('Should call UpdateStudent whith correct values', async () => {
       const studentId = 1;
-      const updateSpy = jest.spyOn(updateStudent, 'call');
-      await controllerStudent.update(studentId, mockUpdateStudentDto);
+      const updateSpy = jest
+        .spyOn(updateStudent, 'call')
+        .mockImplementationOnce(() =>
+          Promise.resolve({
+            raw: undefined,
+            affected: 1,
+            generatedMaps: [],
+          }),
+        );
+      const response = await controllerStudent.update(
+        studentId,
+        mockUpdateStudentDto,
+      );
       expect(updateSpy).toHaveBeenCalledWith(studentId, mockCreateStudentDto);
+      expect(response.affected).toBe(1);
     });
   });
 
   describe('Delete Student', () => {
     it('should delete a student by id ', async () => {
       const studentId = 1;
-      const deleteSpy = jest.spyOn(deleteSutdent, 'call');
-      await controllerStudent.delete(studentId);
+      const deleteSpy = jest
+        .spyOn(deleteStudent, 'call')
+        .mockImplementationOnce(() => Promise.resolve(mockStudentEntity));
+      const response = await controllerStudent.delete(studentId);
       expect(deleteSpy).toHaveBeenCalledWith(studentId);
+      expect(response).toEqual(mockStudentEntity);
     });
   });
 });

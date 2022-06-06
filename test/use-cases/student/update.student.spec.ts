@@ -1,4 +1,4 @@
-import { Connection, Repository } from 'typeorm';
+import { Connection, Repository, UpdateResult } from 'typeorm';
 import { UpdateStudentDTO } from '../../../src/domain/dto/student/updateStudent.dto';
 import { Student } from '../../../src/domain/entitys/student.entity';
 import { UpdateStudent } from '../../../src/domain/use_cases/student';
@@ -16,8 +16,9 @@ describe('StudentController', () => {
     studentRepository = nestModule.get(Student.name);
   });
 
-  afterAll(() => {
-    database.close();
+  afterAll(async () => {
+    await database.dropDatabase();
+    await database.close();
   });
 
   it('should be defined', () => {
@@ -35,9 +36,17 @@ describe('StudentController', () => {
         group: '1',
         classGroup: 'a',
       };
-      const updateSpy = jest.spyOn(studentRepository, 'update');
-      await updateStudent.call(studentId, studentDto);
+      const mockUpdate: UpdateResult = {
+        raw: undefined,
+        affected: 1,
+        generatedMaps: [],
+      };
+      const updateSpy = jest
+        .spyOn(studentRepository, 'update')
+        .mockImplementationOnce(() => Promise.resolve(mockUpdate));
+      const response = await updateStudent.call(studentId, studentDto);
       expect(updateSpy).toHaveBeenCalledWith(studentId, studentDto);
+      expect(response.affected).toEqual(1);
     });
   });
 });

@@ -1,4 +1,3 @@
-import { Test } from '@nestjs/testing';
 import { Connection, Repository } from 'typeorm';
 import { Student } from '../../../src/domain/entitys/student.entity';
 import { GetByIdStudent } from '../../../src/domain/use_cases/student';
@@ -16,14 +15,9 @@ describe('StudentController', () => {
     studentRepository = nestModule.get(Student.name);
   });
 
-  afterAll(() => {
-    database.close();
-  });
-
-  beforeEach(async () => {
-    Test.createTestingModule({
-      providers: [GetByIdStudent],
-    });
+  afterAll(async () => {
+    await database.dropDatabase();
+    await database.close();
   });
 
   it('should be defined', () => {

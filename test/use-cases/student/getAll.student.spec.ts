@@ -17,14 +17,7 @@ describe('GetStudents', () => {
   });
 
   afterAll(async () => {
-    await database.dropDatabase();
-    database.close();
-  });
-
-  beforeEach(() => {
-    Test.createTestingModule({
-      providers: [GetStudents],
-    });
+    await database.close();
   });
 
   it('should be defined', () => {

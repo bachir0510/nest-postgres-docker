@@ -7,17 +7,17 @@ import { testsAppModule } from '../../test.app.module.factory';
 describe('StudentController', () => {
   let database: Connection;
   let createStudent: CreateStudent;
-  let studentRepository: Repository<Student>
-  
+  let studentRepository: Repository<Student>;
+
   beforeAll(async () => {
     const [nestModule] = await testsAppModule();
     database = nestModule.get('DATABASE_CONNECTION');
     createStudent = nestModule.get(CreateStudent);
-    studentRepository =nestModule.get(Student.name)
+    studentRepository = nestModule.get(Student.name);
   });
 
-  afterAll(() => {
-    database.close();
+  afterAll(async () => {
+    await database.close();
   });
 
   it('should be defined', () => {
@@ -25,7 +25,7 @@ describe('StudentController', () => {
   });
 
   describe('Create', () => {
-    const studentDto: CreateStudentDTO= {
+    const studentDto: CreateStudentDTO = {
       nia: '151515',
       name: 'Alberto',
       lastName: 'PapaAlberto',
@@ -34,27 +34,28 @@ describe('StudentController', () => {
       classGroup: 'a',
     };
 
-    const studentEntity: Student= {
-        id: 1,
-        nia: '151515',
-        name: 'Alberto',
-        lastName: 'PapaAlberto',
-        motherName: 'MamaAlberto',
-        group: '1',
-        classGroup: 'a',
-      };
-   
-    it('should call studentRepository create', async () => {
-       const createSpy = jest.spyOn(studentRepository, "create");
-       await createStudent.call(studentDto);
-       expect(createSpy).toHaveBeenCalledWith(studentDto)
-    })
+    const studentEntity: Student = {
+      id: 1,
+      nia: '151515',
+      name: 'Alberto',
+      lastName: 'PapaAlberto',
+      motherName: 'MamaAlberto',
+      group: '1',
+      classGroup: 'a',
+    };
     it('should create a new student', async () => {
-      jest.spyOn(studentRepository, 'create').mockReturnValueOnce(studentEntity)
+      const createSpy = jest
+        .spyOn(studentRepository, 'create')
+        .mockReturnValueOnce(studentEntity);
+      jest
+        .spyOn(studentRepository, 'save')
+        .mockImplementationOnce(() => Promise.resolve(studentEntity));
+
       expect(await createStudent.call(studentDto)).toEqual({
         id: expect.any(Number),
         ...studentDto,
       });
+      expect(createSpy).toHaveBeenCalledWith(studentDto);
     });
   });
- });
+});

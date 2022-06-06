@@ -52,7 +52,7 @@ export class StudentController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: Number): Promise<any> {
+  delete(@Param('id') id: number): Promise<any> {
     return this.deteStudent.call(+id);
   }
 }
