@@ -10,7 +10,11 @@ import {
   GetStudents,
   UpdateStudent,
 } from '../../src/domain/use_cases/student';
-import { mockCreateStudentDto, mockStudentEntity, mockUpdateStudentDto } from '../studentData';
+import {
+  mockCreateStudentDto,
+  mockStudentEntity,
+  mockUpdateStudentDto,
+} from '../studentData';
 import { testsAppModule } from '../test.app.module.factory';
 
 describe('StudentController', () => {
@@ -21,8 +25,6 @@ describe('StudentController', () => {
   let getByIdStudent: GetByIdStudent;
   let deleteStudent: DeleteSutdent;
   let updateStudent: UpdateStudent;
-
-  
 
   beforeAll(async () => {
     const [nestModule] = await testsAppModule();
