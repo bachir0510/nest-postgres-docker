@@ -16,7 +16,6 @@ describe('StudentController', () => {
   });
 
   afterAll(async () => {
-    await database.dropDatabase();
     await database.close();
   });
 
