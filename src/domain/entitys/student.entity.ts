@@ -21,5 +21,5 @@ export class Student {
   group: string;
 
   @Column()
-  class: string;
+  classGroup: string;
 }

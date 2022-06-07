@@ -3,13 +3,13 @@ import { Repository } from 'typeorm';
 import { Student } from '../../entitys/student.entity';
 
 @Injectable()
-export class GetStudents {
+export class GetByIdStudent {
   constructor(
     @Inject(Student.name)
     private readonly studentRepository: Repository<Student>,
   ) {}
 
-  async call(): Promise<Student[]> {
-    return this.studentRepository.find();
+  async call(id: number) {
+    return this.studentRepository.findOne(id);
   }
 }

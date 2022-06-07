@@ -4,5 +4,5 @@ export class CreateStudentDTO {
   lastName: string;
   motherName: string;
   group: string;
-  class: string;
+  classGroup: string;
 }
