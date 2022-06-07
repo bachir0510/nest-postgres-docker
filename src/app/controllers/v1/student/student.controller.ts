@@ -38,7 +38,7 @@ export class StudentController {
 
   @Get(':id')
   async getOne(@Param('id') id: number) {
-    return await this.getByIdSudent.call(+id);
+    return await this.getByIdSudent.call(id);
   }
 
   @Post()
@@ -48,11 +48,11 @@ export class StudentController {
 
   @Put(':id')
   async update(@Param('id') id: number, @Body() studentDTO: UpdateStudentDTO) {
-    return await this.upDataSudent.call(+id, studentDTO);
+    return await this.upDataSudent.call(id, studentDTO);
   }
 
   @Delete(':id')
   delete(@Param('id') id: number): Promise<any> {
-    return this.deteStudent.call(+id);
+    return this.deteStudent.call(id);
   }
 }
