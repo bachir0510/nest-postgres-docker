@@ -6,7 +6,7 @@ import {
   GetStudents,
   GetByIdStudent,
   UpdateStudent,
-  DeleteSutdent,
+  DeleteStudent,
 } from './';
 
 @Module({
@@ -17,14 +17,14 @@ import {
     CreateStudent,
     GetStudents,
     UpdateStudent,
-    DeleteSutdent,
+    DeleteStudent,
   ],
   exports: [
     GetByIdStudent,
     CreateStudent,
     GetStudents,
     UpdateStudent,
-    DeleteSutdent,
+    DeleteStudent,
   ],
 })
 export class StudentModule {}

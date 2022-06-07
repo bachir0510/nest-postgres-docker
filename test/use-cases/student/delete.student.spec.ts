@@ -1,17 +1,18 @@
 import { Connection, Repository } from 'typeorm';
 import { Student } from '../../../src/domain/entitys/student.entity';
-import { DeleteSutdent } from '../../../src/domain/use_cases/student';
+import { DeleteStudent } from '../../../src/domain/use_cases/student';
+import { mockStudentEntity } from '../../studentData';
 import { testsAppModule } from '../../test.app.module.factory';
 
 describe('StudentController', () => {
   let database: Connection;
-  let deleteStudent: DeleteSutdent;
+  let deleteStudent: DeleteStudent;
   let studentRepository: Repository<Student>;
 
   beforeAll(async () => {
     const [nestModule] = await testsAppModule();
     database = nestModule.get('DATABASE_CONNECTION');
-    deleteStudent = nestModule.get(DeleteSutdent);
+    deleteStudent = nestModule.get(DeleteStudent);
     studentRepository = nestModule.get(Student.name);
   });
 
@@ -25,26 +26,16 @@ describe('StudentController', () => {
 
   describe('Delete', () => {
     const studentId = 1;
-    const studentEntity: Student = {
-      nia: '151515',
-      name: 'Alberto',
-      lastName: 'PapaAlberto',
-      motherName: 'MamaAlberto',
-      group: '1',
-      classGroup: 'a',
-      id: 1,
-    };
-
     it('should delete a student', async () => {
       jest
         .spyOn(studentRepository, 'findOne')
-        .mockImplementationOnce(() => Promise.resolve(studentEntity));
+        .mockImplementationOnce(() => Promise.resolve(mockStudentEntity));
       const deleteSpy = jest
         .spyOn(studentRepository, 'remove')
-        .mockImplementationOnce(() => Promise.resolve(studentEntity));
+        .mockImplementationOnce(() => Promise.resolve(mockStudentEntity));
       const response = await deleteStudent.call(studentId);
-      expect(response).toEqual(studentEntity);
-      expect(deleteSpy).toHaveBeenCalledWith(studentEntity);
+      expect(response).toEqual(mockStudentEntity);
+      expect(deleteSpy).toHaveBeenCalledWith(mockStudentEntity);
     });
   });
 });

@@ -1,10 +1,9 @@
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { Connection, Repository } from 'typeorm';
-import { UpdateStudentDTO } from '../../src/domain/dto/student/updateStudent.dto';
 import { Student } from '../../src/domain/entitys/student.entity';
 import { CreateStudent } from '../../src/domain/use_cases/student';
-import { mockStudentEntity } from '../studentData';
+import { mockStudentEntity, mockUpdateStudentDto } from '../studentData';
 import { testsAppModule } from '../test.app.module.factory';
 
 describe('StudentController (e2e)', () => {
@@ -50,21 +49,13 @@ describe('StudentController (e2e)', () => {
   });
 
   it('/student/1 (PUT)', () => {
-    const input: UpdateStudentDTO = {
-      nia: 'string',
-      classGroup: 'string',
-      group: 'string',
-      lastName: 'string',
-      motherName: 'string',
-      name: 'string',
-    };
     const updateReturn = { raw: undefined, affected: 1, generatedMaps: [] };
     jest
       .spyOn(studentRepository, 'update')
       .mockImplementationOnce(() => Promise.resolve(updateReturn));
     return request(appTest.getHttpServer())
       .put('/student/1')
-      .send(input)
+      .send(mockUpdateStudentDto)
       .expect(HttpStatus.OK)
       .expect({ affected: 1, generatedMaps: [] });
   });

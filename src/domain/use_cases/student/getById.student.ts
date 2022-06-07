@@ -10,6 +10,6 @@ export class GetByIdStudent {
   ) {}
 
   async call(id: number) {
-    return await this.studentRepository.findOne(id);
+    return this.studentRepository.findOne(id);
   }
 }

@@ -2,6 +2,7 @@ import { Connection, Repository } from 'typeorm';
 import { CreateStudentDTO } from '../../../src/domain/dto/student/createStudent.dto';
 import { Student } from '../../../src/domain/entitys/student.entity';
 import { CreateStudent } from '../../../src/domain/use_cases/student';
+import { mockCreateStudentDto, mockStudentEntity } from '../../studentData';
 import { testsAppModule } from '../../test.app.module.factory';
 
 describe('StudentController', () => {
@@ -25,37 +26,19 @@ describe('StudentController', () => {
   });
 
   describe('Create', () => {
-    const studentDto: CreateStudentDTO = {
-      nia: '151515',
-      name: 'Alberto',
-      lastName: 'PapaAlberto',
-      motherName: 'MamaAlberto',
-      group: '1',
-      classGroup: 'a',
-    };
-
-    const studentEntity: Student = {
-      id: 1,
-      nia: '151515',
-      name: 'Alberto',
-      lastName: 'PapaAlberto',
-      motherName: 'MamaAlberto',
-      group: '1',
-      classGroup: 'a',
-    };
     it('should create a new student', async () => {
       const createSpy = jest
         .spyOn(studentRepository, 'create')
-        .mockReturnValueOnce(studentEntity);
+        .mockReturnValueOnce(mockStudentEntity);
       jest
         .spyOn(studentRepository, 'save')
-        .mockImplementationOnce(() => Promise.resolve(studentEntity));
+        .mockImplementationOnce(() => Promise.resolve(mockStudentEntity));
 
-      expect(await createStudent.call(studentDto)).toEqual({
+      expect(await createStudent.call(mockCreateStudentDto)).toEqual({
         id: expect.any(Number),
-        ...studentDto,
+        ...mockCreateStudentDto,
       });
-      expect(createSpy).toHaveBeenCalledWith(studentDto);
+      expect(createSpy).toHaveBeenCalledWith(mockCreateStudentDto);
     });
   });
 });

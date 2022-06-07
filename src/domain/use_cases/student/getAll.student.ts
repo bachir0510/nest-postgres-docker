@@ -10,6 +10,6 @@ export class GetStudents {
   ) {}
 
   async call(): Promise<Student[]> {
-    return await this.studentRepository.find();
+    return this.studentRepository.find();
   }
 }

@@ -2,6 +2,7 @@ import { Connection, Repository, UpdateResult } from 'typeorm';
 import { UpdateStudentDTO } from '../../../src/domain/dto/student/updateStudent.dto';
 import { Student } from '../../../src/domain/entitys/student.entity';
 import { UpdateStudent } from '../../../src/domain/use_cases/student';
+import { mockUpdateStudentDto } from '../../studentData';
 import { testsAppModule } from '../../test.app.module.factory';
 
 describe('StudentController', () => {
@@ -26,25 +27,20 @@ describe('StudentController', () => {
 
   describe('Update', () => {
     const studentId = 1;
+    const mockUpdate: UpdateResult = {
+      raw: undefined,
+      affected: 1,
+      generatedMaps: [],
+    };
     it('should update a student', async () => {
-      const studentDto: UpdateStudentDTO = {
-        nia: '151515',
-        name: 'Alberto',
-        lastName: 'PapaAlberto',
-        motherName: 'MamaAlberto',
-        group: '1',
-        classGroup: 'a',
-      };
-      const mockUpdate: UpdateResult = {
-        raw: undefined,
-        affected: 1,
-        generatedMaps: [],
-      };
       const updateSpy = jest
         .spyOn(studentRepository, 'update')
         .mockImplementationOnce(() => Promise.resolve(mockUpdate));
-      const response = await updateStudent.call(studentId, studentDto);
-      expect(updateSpy).toHaveBeenCalledWith(studentId, studentDto);
+      const response = await updateStudent.call(
+        studentId,
+        mockUpdateStudentDto,
+      );
+      expect(updateSpy).toHaveBeenCalledWith(studentId, mockUpdateStudentDto);
       expect(response.affected).toEqual(1);
     });
   });

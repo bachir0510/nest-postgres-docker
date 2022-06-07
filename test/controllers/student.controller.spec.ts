@@ -1,11 +1,8 @@
-import { Connection, UpdateResult } from 'typeorm';
+import { Connection } from 'typeorm';
 import { StudentController } from '../../src/app/controllers/v1/student/student.controller';
-import { CreateStudentDTO } from '../../src/domain/dto/student/createStudent.dto';
-import { UpdateStudentDTO } from '../../src/domain/dto/student/updateStudent.dto';
-import { Student } from '../../src/domain/entitys/student.entity';
 import {
   CreateStudent,
-  DeleteSutdent,
+  DeleteStudent,
   GetByIdStudent,
   GetStudents,
   UpdateStudent,
@@ -23,7 +20,7 @@ describe('StudentController', () => {
   let createStudent: CreateStudent;
   let getAllStudent: GetStudents;
   let getByIdStudent: GetByIdStudent;
-  let deleteStudent: DeleteSutdent;
+  let deleteStudent: DeleteStudent;
   let updateStudent: UpdateStudent;
 
   beforeAll(async () => {
@@ -33,7 +30,7 @@ describe('StudentController', () => {
     createStudent = nestModule.get(CreateStudent);
     getAllStudent = nestModule.get(GetStudents);
     getByIdStudent = nestModule.get(GetByIdStudent);
-    deleteStudent = nestModule.get(DeleteSutdent);
+    deleteStudent = nestModule.get(DeleteStudent);
     updateStudent = nestModule.get(UpdateStudent);
   });
 

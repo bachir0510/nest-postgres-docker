@@ -1,6 +1,7 @@
 import { Connection, Repository } from 'typeorm';
 import { Student } from '../../../src/domain/entitys/student.entity';
 import { GetByIdStudent } from '../../../src/domain/use_cases/student';
+import { mockStudentEntity } from '../../studentData';
 import { testsAppModule } from '../../test.app.module.factory';
 
 describe('StudentController', () => {
@@ -26,19 +27,10 @@ describe('StudentController', () => {
   describe('Get One Student', () => {
     const studentId = 1;
     it('should find one student by id', async () => {
-      const studentEntity = {
-        id: 1,
-        nia: '151515',
-        name: 'Alberto',
-        lastName: 'PapaAlberto',
-        motherName: 'MamaAlberto',
-        group: '1',
-        classGroup: 'a',
-      };
       jest
         .spyOn(studentRepository, 'findOne')
-        .mockResolvedValueOnce(studentEntity);
-      expect(await getByIdStudent.call(studentId)).toEqual(studentEntity);
+        .mockResolvedValueOnce(mockStudentEntity);
+      expect(await getByIdStudent.call(studentId)).toEqual(mockStudentEntity);
     });
   });
 });

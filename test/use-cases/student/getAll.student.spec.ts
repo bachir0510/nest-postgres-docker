@@ -1,7 +1,7 @@
-import { Test } from '@nestjs/testing';
 import { Connection, Repository } from 'typeorm';
 import { Student } from '../../../src/domain/entitys/student.entity';
 import { GetStudents } from '../../../src/domain/use_cases/student';
+import { mockStudentEntity } from '../../studentData';
 import { testsAppModule } from '../../test.app.module.factory';
 
 describe('GetStudents', () => {
@@ -25,29 +25,11 @@ describe('GetStudents', () => {
   });
 
   describe('Get all Students', () => {
-    const studentData: Student = {
-      nia: '151515',
-      name: 'Alberto',
-      lastName: 'PapaAlberto',
-      motherName: 'MamaAlberto',
-      group: '1',
-      classGroup: 'a',
-      id: expect.any(Number),
-    };
     it('should find all students', async () => {
-      const entity: Student = {
-        nia: '151515',
-        name: 'Alberto',
-        lastName: 'PapaAlberto',
-        motherName: 'MamaAlberto',
-        group: '1',
-        classGroup: 'a',
-        id: 1,
-      };
       jest
         .spyOn(studentEntity, 'find')
-        .mockImplementationOnce(() => Promise.resolve([entity]));
-      expect(await getStudent.call()).toEqual([studentData]);
+        .mockImplementationOnce(() => Promise.resolve([mockStudentEntity]));
+      expect(await getStudent.call()).toEqual([mockStudentEntity]);
     });
   });
 });

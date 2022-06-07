@@ -16,7 +16,7 @@ import {
   CreateStudent,
   GetByIdStudent,
   GetStudents,
-  DeleteSutdent,
+  DeleteStudent,
   UpdateStudent,
 } from '../../../../domain/use_cases/student';
 
@@ -28,7 +28,7 @@ export class StudentController {
     private readonly getSudents: GetStudents,
     private readonly getByIdSudent: GetByIdStudent,
     private readonly upDataSudent: UpdateStudent,
-    private readonly deteStudent: DeleteSutdent,
+    private readonly deteStudent: DeleteStudent,
   ) {}
 
   @Get()
