@@ -1,26 +1,23 @@
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { Connection } from 'typeorm';
-import { StudentController } from '../../src/app/controllers/v1/student/student.controller';
-import {
-  CreateStudent,
-  
-} from '../../src/domain/use_cases/student';
+import { Connection, Repository } from 'typeorm';
+import { UpdateStudentDTO } from '../../src/domain/dto/student/updateStudent.dto';
+import { Student } from '../../src/domain/entitys/student.entity';
+import { CreateStudent } from '../../src/domain/use_cases/student';
 import { mockStudentEntity } from '../studentData';
 import { testsAppModule } from '../test.app.module.factory';
 
 describe('StudentController (e2e)', () => {
   let appTest: INestApplication;
   let database: Connection;
-  let controllerStudent: StudentController;
   let createStudent: CreateStudent;
- 
+  let studentRepository: Repository<Student>;
 
   beforeAll(async () => {
     const [app, nestModule] = await testsAppModule();
     appTest = app;
     database = nestModule.get('DATABASE_CONNECTION');
-    controllerStudent = nestModule.get(StudentController);
+    studentRepository = nestModule.get(Student.name);
     createStudent = nestModule.get(CreateStudent);
   });
 
@@ -40,36 +37,45 @@ describe('StudentController (e2e)', () => {
 
   it('/student (GET)', () => {
     jest
-      .spyOn(controllerStudent, 'getAll')
+      .spyOn(studentRepository, 'find')
       .mockImplementationOnce(() => Promise.resolve([mockStudentEntity]));
     return request(appTest.getHttpServer()).get('/student').expect(200);
   });
 
   it('/student/1 (GET)', () => {
-    jest.spyOn(controllerStudent, 'getOne').mockImplementationOnce(() => Promise.resolve(mockStudentEntity));
+    jest
+      .spyOn(studentRepository, 'findOne')
+      .mockImplementationOnce(() => Promise.resolve(mockStudentEntity));
     return request(appTest.getHttpServer()).get('/student/1').expect(200);
   });
 
   it('/student/1 (PUT)', () => {
+    const input: UpdateStudentDTO = {
+      nia: 'string',
+      classGroup: 'string',
+      group: 'string',
+      lastName: 'string',
+      motherName: 'string',
+      name: 'string',
+    };
     const updateReturn = { raw: undefined, affected: 1, generatedMaps: [] };
-    const updateSpy = jest
-      .spyOn(controllerStudent, 'update')
+    jest
+      .spyOn(studentRepository, 'update')
       .mockImplementationOnce(() => Promise.resolve(updateReturn));
     return request(appTest.getHttpServer())
       .put('/student/1')
+      .send(input)
       .expect(HttpStatus.OK)
-      .expect(updateSpy)
-      
+      .expect({ affected: 1, generatedMaps: [] });
   });
 
   it('/student/1 (DELETE)', async () => {
-    const deleteSpy = jest
-      .spyOn(controllerStudent, 'delete')
+    jest
+      .spyOn(studentRepository, 'remove')
       .mockImplementationOnce(() => Promise.resolve(mockStudentEntity));
     return request(appTest.getHttpServer())
       .delete('/student/1')
       .expect(200)
-      .expect(deleteSpy)
-      
+      .expect(mockStudentEntity);
   });
 });
