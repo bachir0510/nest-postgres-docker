@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpDateStudentDTO {
+export class UpdateStudentDTO {
   @ApiProperty({
     description: 'The nia of a student',
     type: String,
