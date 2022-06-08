@@ -11,7 +11,7 @@ export class CreateStudent {
   ) {}
 
   async call(studentDTO: CreateStudentDTO): Promise<Student> {
-    const createStudent = this.studentRepository.create(studentDTO);
-    return this.studentRepository.save(createStudent);
+    const student: Student = this.studentRepository.create(studentDTO);
+    return this.studentRepository.save(student);
   }
 }

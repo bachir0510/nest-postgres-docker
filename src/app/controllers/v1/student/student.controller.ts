@@ -23,10 +23,10 @@ import {
 @Controller('student')
 export class StudentController {
   constructor(
-    private readonly createStudent: CreateStudent,
+    private readonly createStudent: CreateStudent,   
     private readonly getSudents: GetStudents,
     private readonly getByIdSudent: GetByIdStudent,
-    private readonly upDateSudent: UpdateStudent,
+    private readonly updateSudent: UpdateStudent,
     private readonly deteStudent: DeleteStudent,
   ) {}
 
@@ -59,7 +59,7 @@ export class StudentController {
     description: 'Update student information by id ',
   })
   async update(@Param('id') id: number, @Body() studentDTO: UpdateStudentDTO) {
-    return this.upDateSudent.call(id, studentDTO);
+    return this.updateSudent.call(id, studentDTO);
   }
 
   @Delete(':id')
