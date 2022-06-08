@@ -4,11 +4,10 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateStudentDTO } from '../../../../domain/dto/student/createStudent.dto';
 import { UpdateStudentDTO } from '../../../../domain/dto/student/updateStudent.dto';
 import { Student } from '../../../../domain/entitys/student.entity';
@@ -27,32 +26,47 @@ export class StudentController {
     private readonly createStudent: CreateStudent,
     private readonly getSudents: GetStudents,
     private readonly getByIdSudent: GetByIdStudent,
-    private readonly upDataSudent: UpdateStudent,
+    private readonly upDateSudent: UpdateStudent,
     private readonly deteStudent: DeleteStudent,
   ) {}
 
   @Get()
+  @ApiOperation({
+    description: 'Return all student',
+  })
   async getAll(): Promise<Student[]> {
-    return await this.getSudents.call();
-  }
-
-  @Get(':id')
-  async getOne(@Param('id') id: number) {
-    return await this.getByIdSudent.call(id);
+    return this.getSudents.call();
   }
 
   @Post()
+  @ApiOperation({
+    description: 'Create a new student',
+  })
   async create(@Body() studentDTO: CreateStudentDTO): Promise<Student> {
-    return await this.createStudent.call(studentDTO);
+    return this.createStudent.call(studentDTO);
+  }
+
+  @Get(':id')
+  @ApiOperation({
+    description: 'Return one student by id',
+  })
+  async getOne(@Param('id') id: number): Promise<Student> {
+    return this.getByIdSudent.call(id);
   }
 
   @Put(':id')
+  @ApiOperation({
+    description: 'Update student information by id ',
+  })
   async update(@Param('id') id: number, @Body() studentDTO: UpdateStudentDTO) {
-    return await this.upDataSudent.call(id, studentDTO);
+    return this.upDateSudent.call(id, studentDTO);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: number): Promise<any> {
+  @ApiOperation({
+    description: 'delete student by id ',
+  })
+  delete(@Param('id') id: number): Promise<Student> {
     return this.deteStudent.call(id);
   }
 }

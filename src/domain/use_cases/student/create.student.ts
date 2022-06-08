@@ -12,6 +12,6 @@ export class CreateStudent {
 
   async call(studentDTO: CreateStudentDTO): Promise<Student> {
     const createStudent = this.studentRepository.create(studentDTO);
-    return await this.studentRepository.save(createStudent);
+    return this.studentRepository.save(createStudent);
   }
 }
