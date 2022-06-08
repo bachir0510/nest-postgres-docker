@@ -7,7 +7,7 @@ import { StudentController } from './student/student.controller';
 import { UserController } from './user/user.constroller';
 
 @Module({
-  imports: [StudentModule, UserModule,AuthModule],
+  imports: [StudentModule, UserModule, AuthModule],
   controllers: [StudentController, UserController, AuthController],
 })
 export class ControllerV1Module {}
