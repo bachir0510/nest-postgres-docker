@@ -1,14 +1,22 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { LoginDto } from '../../dto/auth/login.dto';
-import { User } from '../../entitys/user.entity';
-import { GetByIdStudent } from '../student';
+import { ComparePassword, GetByEmail } from '../user';
 
 @Injectable()
 export class LoginUser {
-  constructor(private readonly findById: GetByIdStudent) {}
+  constructor(
+    private readonly getByEmail: GetByEmail,
+    private readonly checkPassword: ComparePassword,
+  ) {}
 
-  async call(loginDto: LoginDto): Promise<LoginDto> {
-    return;
+  async call(loginDto: LoginDto): Promise<string> {
+    const user = await this.getByEmail.call(loginDto.email);
+    if (
+      user &&
+      (await this.checkPassword.call(loginDto.password, user.password))
+    ) {
+      return 'jwt';
+    }
+    throw new UnauthorizedException("Please chck your password")
   }
 }

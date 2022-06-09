@@ -5,18 +5,20 @@ import {
   CreateUser,
   GetUsers,
   GetByIdUser,
+  GetByEmail,
   UpdateUser,
   DeleteUser,
   ComparePassword,
 } from './';
 
-@Module({
+@Module({ 
   imports: [DatabaseModule],
   providers: [
     ...userProvider,
     CreateUser,
     GetUsers,
     GetByIdUser,
+    GetByEmail,
     UpdateUser,
     DeleteUser,
     ComparePassword,
@@ -25,6 +27,7 @@ import {
     CreateUser,
     GetUsers,
     GetByIdUser,
+    GetByEmail,
     UpdateUser,
     DeleteUser,
     ComparePassword,
