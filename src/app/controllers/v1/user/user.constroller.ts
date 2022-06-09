@@ -7,7 +7,6 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateUserDTO } from '../../../../domain/dto/user/createUser.dto';
 import { UpdateUserDTO } from '../../../../domain/dto/user/updateUser.dto';
 import { User } from '../../../../domain/entitys/user.entity';
 import {
@@ -28,11 +27,7 @@ export class UserController {
     private readonly deleteUser: DeleteUser,
   ) {}
 
-  @Post()
-  async create(@Body() userDto: CreateUserDTO): Promise<User> {
-    return this.createUser.call(userDto);
-  }
-
+ 
   @Get()
   async getAll(): Promise<User[]> {
     return this.getAllUsers.call();
