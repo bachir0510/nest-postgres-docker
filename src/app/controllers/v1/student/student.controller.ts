@@ -39,28 +39,28 @@ export class StudentController {
     return await this.getSudents.call();
   }
 
-   @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Get(':id')
   async getOne(@Param('id') id: number) {
     return await this.getByIdSudent.call(id);
   }
 
-   @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Post()
   async create(@Body() studentDTO: CreateStudentDTO): Promise<Student> {
     return await this.createStudent.call(studentDTO);
   }
 
-   @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Put(':id')
   async update(@Param('id') id: number, @Body() studentDTO: UpdateStudentDTO) {
     return await this.upDataSudent.call(id, studentDTO);
   }
 
-   @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Delete(':id')
   delete(@Param('id') id: number): Promise<any> {

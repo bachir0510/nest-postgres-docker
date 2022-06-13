@@ -12,7 +12,6 @@ import { UpdateUserDTO } from '../../../../domain/dto/user/updateUser.dto';
 import { User } from '../../../../domain/entitys/user.entity';
 import { JwtAuthGuard } from '../../../../domain/use_cases/auth/guards/jwtAuth.guard';
 import {
-  
   GetByIdUser,
   GetUsers,
   UpdateUser,

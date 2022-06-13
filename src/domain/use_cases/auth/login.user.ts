@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from '../../dto/auth/login.dto';
+import { LoginOutputDto } from '../../dto/auth/LoginOutputDto';
 import { JwtPayload } from '../../interface/jwtPayload.interface';
 import { ComparePassword, GetByEmail } from '../user';
 
@@ -12,7 +13,7 @@ export class LoginUser {
     private readonly jwtService: JwtService,
   ) {}
 
-  async call(loginDto: LoginDto): Promise<{ token: string }> {
+  async call(loginDto: LoginDto): Promise<LoginOutputDto> {
     const { email } = loginDto;
     const user = await this.getByEmail.call(email);
     if (
@@ -23,6 +24,6 @@ export class LoginUser {
       const token = this.jwtService.sign(paylaod);
       return { token };
     }
-    throw new UnauthorizedException('Please chck your password');
+    throw new UnauthorizedException('Please check your password');
   }
 }

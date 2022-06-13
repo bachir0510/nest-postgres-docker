@@ -22,11 +22,4 @@ export class AuthController {
   register(@Body() userDto: CreateUserDTO) {
     return this.registerUser.call(userDto);
   }
-
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Get('refresh')
-  refreshToken() {
-    return { message: 'Refresh' };
-  }
 }
