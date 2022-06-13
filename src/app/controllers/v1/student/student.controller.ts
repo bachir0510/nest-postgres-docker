@@ -10,7 +10,7 @@ import {
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateStudentDTO } from '../../../../domain/dto/student/createStudent.dto';
 import { UpdateStudentDTO } from '../../../../domain/dto/student/updateStudent.dto';
-import { Student } from '../../../../domain/entitys/student.entity';
+import { Student } from '../../../../domain/entities/student.entity';
 import {
   CreateStudent,
   GetByIdStudent,
@@ -23,7 +23,7 @@ import {
 @Controller('student')
 export class StudentController {
   constructor(
-    private readonly createStudent: CreateStudent,   
+    private readonly createStudent: CreateStudent,
     private readonly getSudents: GetStudents,
     private readonly getByIdSudent: GetByIdStudent,
     private readonly updateStudent: UpdateStudent,

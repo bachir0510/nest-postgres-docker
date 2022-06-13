@@ -1,6 +1,6 @@
 import { CreateStudentDTO } from '../src/domain/dto/student/createStudent.dto';
 import { UpdateStudentDTO } from '../src/domain/dto/student/updateStudent.dto';
-import { Student } from '../src/domain/entitys/student.entity';
+import { Student } from '../src/domain/entities/student.entity';
 
 export const mockCreateStudentDto: CreateStudentDTO = {
   nia: '0000',
