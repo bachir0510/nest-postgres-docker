@@ -11,7 +11,7 @@ import {
   ComparePassword,
 } from './';
 
-@Module({ 
+@Module({
   imports: [DatabaseModule],
   providers: [
     ...userProvider,

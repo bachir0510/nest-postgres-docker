@@ -4,14 +4,15 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateStudentDTO } from '../../../../domain/dto/student/createStudent.dto';
 import { UpdateStudentDTO } from '../../../../domain/dto/student/updateStudent.dto';
 import { Student } from '../../../../domain/entitys/student.entity';
+import { JwtAuthGuard } from '../../../../domain/use_cases/auth/guards/jwtAuth.guard';
 import {
   CreateStudent,
   GetByIdStudent,
@@ -31,26 +32,31 @@ export class StudentController {
     private readonly deteStudent: DeleteStudent,
   ) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async getAll(): Promise<Student[]> {
     return await this.getSudents.call();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async getOne(@Param('id') id: number) {
     return await this.getByIdSudent.call(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() studentDTO: CreateStudentDTO): Promise<Student> {
     return await this.createStudent.call(studentDTO);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async update(@Param('id') id: number, @Body() studentDTO: UpdateStudentDTO) {
     return await this.upDataSudent.call(id, studentDTO);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   delete(@Param('id') id: number): Promise<any> {
     return this.deteStudent.call(id);

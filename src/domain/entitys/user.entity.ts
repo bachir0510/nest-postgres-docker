@@ -43,7 +43,7 @@ export class User {
     type: 'uuid',
     unique: true,
   })
-  activationToken: string
+  activationToken: string;
 
   @CreateDateColumn()
   createdOn: Date;

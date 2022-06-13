@@ -9,6 +9,6 @@ export class GetByEmail {
   ) {}
 
   async call(email: string): Promise<User> {
-    return await this.userRepository.findOne({email});
+    return await this.userRepository.findOne({ email });
   }
 }
