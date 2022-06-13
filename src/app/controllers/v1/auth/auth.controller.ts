@@ -1,8 +1,9 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { LoginDto } from '../../../../domain/dto/auth/login.dto';
 import { CreateUserDTO } from '../../../../domain/dto/user/createUser.dto';
 import { LoginUser, RegisterUser } from '../../../../domain/use_cases/auth';
+import { JwtAuthGuard } from '../../../../domain/use_cases/auth/guards/jwtAuth.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -20,5 +21,12 @@ export class AuthController {
   @Post('register')
   register(@Body() userDto: CreateUserDTO) {
     return this.registerUser.call(userDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get('refresh')
+  refreshToken() {
+    return { message: 'Refresh' };
   }
 }

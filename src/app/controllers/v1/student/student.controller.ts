@@ -8,7 +8,7 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateStudentDTO } from '../../../../domain/dto/student/createStudent.dto';
 import { UpdateStudentDTO } from '../../../../domain/dto/student/updateStudent.dto';
 import { Student } from '../../../../domain/entitys/student.entity';
@@ -33,30 +33,35 @@ export class StudentController {
   ) {}
 
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get()
   async getAll(): Promise<Student[]> {
     return await this.getSudents.call();
   }
 
-  @UseGuards(JwtAuthGuard)
+   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get(':id')
   async getOne(@Param('id') id: number) {
     return await this.getByIdSudent.call(id);
   }
 
-  @UseGuards(JwtAuthGuard)
+   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post()
   async create(@Body() studentDTO: CreateStudentDTO): Promise<Student> {
     return await this.createStudent.call(studentDTO);
   }
 
-  @UseGuards(JwtAuthGuard)
+   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Put(':id')
   async update(@Param('id') id: number, @Body() studentDTO: UpdateStudentDTO) {
     return await this.upDataSudent.call(id, studentDTO);
   }
 
-  @UseGuards(JwtAuthGuard)
+   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Delete(':id')
   delete(@Param('id') id: number): Promise<any> {
     return this.deteStudent.call(id);

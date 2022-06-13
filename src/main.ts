@@ -12,7 +12,8 @@ async function bootstrap() {
 
   dotenv.config();
   const options = new DocumentBuilder()
-    .setTitle('Students API')
+    .setTitle('School API')
+    .addBearerAuth()
     .setDescription('The Students API description')
     .setVersion('1.0')
     .build();
