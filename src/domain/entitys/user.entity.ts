@@ -45,6 +45,13 @@ export class User {
   })
   activationToken: string;
 
+  @Column({ 
+    type: 'timestamp', 
+    nullable: true, 
+    default: null 
+  })
+  lastLoginAt: Date | null;
+
   @CreateDateColumn()
   createdOn: Date;
 

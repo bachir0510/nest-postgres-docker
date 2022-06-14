@@ -1,7 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Req, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Repository } from 'typeorm';
 import { LoginDto } from '../../dto/auth/login.dto';
 import { LoginOutputDto } from '../../dto/auth/LoginOutputDto';
+import { User } from '../../entitys/user.entity';
 import { JwtPayload } from '../../interface/jwtPayload.interface';
 import { ComparePassword, GetByEmail } from '../user';
 
@@ -11,6 +13,8 @@ export class LoginUser {
     private readonly getByEmail: GetByEmail,
     private readonly checkPassword: ComparePassword,
     private readonly jwtService: JwtService,
+    // no se si sellama el repositorio asi
+    // private readonly repository: Repository<User>
   ) {}
 
   async call(loginDto: LoginDto): Promise<LoginOutputDto> {
@@ -25,5 +29,15 @@ export class LoginUser {
       return { token };
     }
     throw new UnauthorizedException('Please check your password');
+  }
+  
+  // puse este caso de uso aqui para probar si funciona antes de moverla 
+  // estoy intentado llamar el repositoryo del Use pero no deja 
+
+   async refresh(@Req() {user} ){
+    this.repository.update(user.id, { lastLoginAt: new Date()})
+    const token = this.jwtService.sign({ id: user.id, email: user.email })
+
+    return token
   }
 }
