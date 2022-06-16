@@ -1,18 +1,16 @@
-import { Injectable } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import { JwtPayload } from "../../interface/jwtPayload.interface";
+import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from '../../interface/jwtPayload.interface';
 
 @Injectable()
 export class AccessToken {
-constructor(
-    private readonly jwtService: JwtService
-){}
+  constructor(private readonly jwtService: JwtService) {}
 
-    async call(payload: JwtPayload) {
-        const accessToken = this.jwtService.sign(payload, {
-            secret: 'secret',
-            expiresIn: 3600
-        })
-        return accessToken
-    }
+  async call(payload: JwtPayload) {
+    const accessToken = this.jwtService.sign(payload, {
+      secret: 'secret',
+      expiresIn: 3600,
+    });
+    return accessToken;
+  }
 }
