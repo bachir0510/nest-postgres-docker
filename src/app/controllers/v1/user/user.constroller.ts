@@ -33,13 +33,8 @@ export class UserController {
   ) {}
 
   @Post()
-  async create(
-    userName: string,
-    email: string,
-    password: string,
-    activationToken: string,
-  ): Promise<User> {
-    return this.createUser.call(userName, email, password, activationToken);
+  async create(@Body() userDto: CreateUserDTO): Promise<User> {
+    return this.createUser.call(userDto);
   }
 
   // @UseGuards(JwtAuthGuard)
