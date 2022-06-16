@@ -1,10 +1,9 @@
-import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Request, Response } from 'express';
+import { Body, Controller,Post, Req } from '@nestjs/common';
+import {  ApiTags } from '@nestjs/swagger';
 import { LoginDto } from '../../../../domain/dto/auth/login.dto';
 import { CreateUserDTO } from '../../../../domain/dto/user/createUser.dto';
+import { User } from '../../../../domain/entitys/user.entity';
 import { LoginUser, RegisterUser } from '../../../../domain/use_cases/auth';
-import { JwtAuthGuard } from '../../../../domain/use_cases/auth/guards/jwtAuth.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -15,27 +14,24 @@ export class AuthController {
   ) {}
 
   @Post('login')
-  async login(@Body() loginDto: LoginDto): Promise<{ token: string }> {
+  async login(@Body() loginDto: LoginDto): Promise<{accessToken: string; refreshToken: string }> {
     return this.loginUser.call(loginDto);
   }
 
   @Post('register')
-  register(@Body() userDto: CreateUserDTO) {
+  async register(@Body() userDto: CreateUserDTO) {
     return this.registerUser.call(userDto);
   }
 
-  @Post('logout')
-  logout(@Res({ passthrough: true }) response: Response) {
-    response.clearCookie('jwt');
+  // @Get('logout')
+  // logout(@GetUser() user: User){
+  //   this.logoutUser.call(user)
+  // }  
 
-    return {
-      message: 'logout success',
-    };
+  @Post('refreshToken')
+  async refreshToken(@Req() user: User){
+    return this.loginUser.call(user)
   }
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Post('refresh')
-  refresh(@Req() {user} ){
-    return this.loginUser.refresh(user)
-  }
+  
+  
 }

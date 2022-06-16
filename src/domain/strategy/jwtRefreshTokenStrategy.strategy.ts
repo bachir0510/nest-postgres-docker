@@ -3,11 +3,15 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { User } from '../entitys/user.entity';
 import { JwtPayload } from '../interface/jwtPayload.interface';
+import { LoginUser } from '../use_cases/auth';
 import { GetByEmail } from '../use_cases/user';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy,'jwt') {
-  constructor(private readonly getByEmail: GetByEmail) {
+export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh-token') {
+  constructor(
+    private readonly getByEmail: GetByEmail,
+    private login: LoginUser 
+    ) {
     super({
       secretOrKey: 'secret',
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

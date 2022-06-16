@@ -1,3 +1,4 @@
 export class LoginOutputDto {
-  readonly token: string;
+  accessToken: string;
+  refreshToken;
 }

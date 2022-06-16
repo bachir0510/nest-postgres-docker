@@ -12,7 +12,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateStudentDTO } from '../../../../domain/dto/student/createStudent.dto';
 import { UpdateStudentDTO } from '../../../../domain/dto/student/updateStudent.dto';
 import { Student } from '../../../../domain/entitys/student.entity';
-import { JwtAuthGuard } from '../../../../domain/use_cases/auth/guards/jwtAuth.guard';
+import { JwtAuthGuard } from '../../../../domain/guards/jwtAuth.guard';
 import {
   CreateStudent,
   GetByIdStudent,

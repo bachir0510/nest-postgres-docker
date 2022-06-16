@@ -6,18 +6,16 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { hash } from 'bcryptjs';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('increment')
-  id: number;
+  id: string;
 
   @Column({
     type: 'varchar',
-    length: 100,
-    default: '',
-    nullable: true,
   })
   userName: string;
 
@@ -45,12 +43,13 @@ export class User {
   })
   activationToken: string;
 
-  @Column({ 
-    type: 'timestamp', 
-    nullable: true, 
-    default: null 
-  })
-  lastLoginAt: Date | null;
+  @Column()
+  @Exclude()
+  refreshtoken: string;
+
+  @Column()
+  @Exclude()
+  refreshtokenexpires: string;
 
   @CreateDateColumn()
   createdOn: Date;
