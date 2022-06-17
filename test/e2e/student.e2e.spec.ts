@@ -1,7 +1,7 @@
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { Connection, Repository } from 'typeorm';
-import { Student } from '../../src/domain/entitys/student.entity';
+import { Student } from '../../src/domain/entities/student.entity';
 import { CreateStudent } from '../../src/domain/use_cases/student';
 import { mockStudentEntity, mockUpdateStudentDto } from '../studentData';
 import { testsAppModule } from '../test.app.module.factory';

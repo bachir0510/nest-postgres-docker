@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { CreateStudentDTO } from '../../dto/student/createStudent.dto';
-import { Student } from '../../entitys/student.entity';
+import { Student } from '../../entities/student.entity';
 
 @Injectable()
 export class CreateStudent {
@@ -11,7 +11,7 @@ export class CreateStudent {
   ) {}
 
   async call(studentDTO: CreateStudentDTO): Promise<Student> {
-    const createStudent = this.studentRepository.create(studentDTO);
-    return await this.studentRepository.save(createStudent);
+    const student: Student = this.studentRepository.create(studentDTO);
+    return this.studentRepository.save(student);
   }
 }

@@ -1,5 +1,5 @@
 import { Connection, Repository } from 'typeorm';
-import { Student } from '../../../src/domain/entitys/student.entity';
+import { Student } from '../../../src/domain/entities/student.entity';
 import { GetByIdStudent } from '../../../src/domain/use_cases/student';
 import { mockStudentEntity } from '../../studentData';
 import { testsAppModule } from '../../test.app.module.factory';
