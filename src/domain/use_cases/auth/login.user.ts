@@ -12,7 +12,7 @@ export class LoginUser {
     private readonly getByEmail: GetByEmail,
     private readonly checkPassword: ComparePassword,
     private readonly getRefreshToken: GetRefreshToken,
-    private readonly jwtService: JwtService,
+    private readonly jwtService:JwtService
   ) {}
 
   async call(loginDto: LoginDto): Promise<LoginOutputDto> {
@@ -24,11 +24,11 @@ export class LoginUser {
     ) {
       const paylaod: JwtPayload = { id: user.id, email, active: user.active };
       const accessToken = this.jwtService.sign(paylaod);
-      const refreshToken = this.getRefreshToken.call(user);
+      const refreshToken = this.getRefreshToken.call(user)
 
-      return {
+      return { 
         accessToken,
-        refreshToken,
+        refreshToken
       };
     }
     throw new UnauthorizedException('Please check your password');

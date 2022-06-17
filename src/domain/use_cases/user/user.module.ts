@@ -9,7 +9,7 @@ import {
   UpdateUser,
   DeleteUser,
   ComparePassword,
-  UpdateRefreshToken,
+  UpdateRefreshToken
 } from './';
 
 @Module({
@@ -23,7 +23,7 @@ import {
     UpdateUser,
     DeleteUser,
     ComparePassword,
-    UpdateRefreshToken,
+    UpdateRefreshToken
   ],
   exports: [
     CreateUser,
@@ -33,7 +33,7 @@ import {
     UpdateUser,
     DeleteUser,
     ComparePassword,
-    UpdateRefreshToken,
+    UpdateRefreshToken
   ],
 })
 export class UserModule {}

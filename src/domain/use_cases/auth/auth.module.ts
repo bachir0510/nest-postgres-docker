@@ -6,7 +6,13 @@ import { userProvider } from '../../../infrastructure/database/providers/user.pr
 import { JwtStrategy } from '../../strategy/jwt.strategy';
 import { JwtRefreshStrategy } from '../../strategy/jwtRefreshTokenStrategy.strategy';
 import { UserModule } from '../user/user.module';
-import { RegisterUser, LoginUser, GetRefreshToken } from './';
+import {
+  RegisterUser,
+  LoginUser,
+  GetRefreshToken,
+  AccessToken,
+  ValidatePassord,
+} from './';
 
 @Module({
   imports: [
@@ -25,6 +31,10 @@ import { RegisterUser, LoginUser, GetRefreshToken } from './';
     LoginUser,
     RegisterUser,
     GetRefreshToken,
+
+    AccessToken,
+    ValidatePassord,
+
     JwtStrategy,
     JwtRefreshStrategy,
   ],
@@ -32,6 +42,10 @@ import { RegisterUser, LoginUser, GetRefreshToken } from './';
     LoginUser,
     RegisterUser,
     GetRefreshToken,
+
+    AccessToken,
+    ValidatePassord,
+
     JwtStrategy,
     JwtRefreshStrategy,
     PassportModule,

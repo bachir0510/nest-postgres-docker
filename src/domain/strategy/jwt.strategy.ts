@@ -6,7 +6,7 @@ import { JwtPayload } from '../interface/jwtPayload.interface';
 import { GetByEmail } from '../use_cases/user';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+export class JwtStrategy extends PassportStrategy(Strategy,'jwt') {
   constructor(private readonly getByEmail: GetByEmail) {
     super({
       secretOrKey: 'secret',

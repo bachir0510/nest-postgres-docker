@@ -43,14 +43,12 @@ export class User {
   })
   activationToken: string;
 
-  @Column({
-    nullable: true,
-  })
+  @Column()
+  @Exclude()
   refreshtoken: string;
 
-  @Column({
-    nullable: true,
-  })
+  @Column()
+  @Exclude()
   refreshtokenexpires: string;
 
   @CreateDateColumn()

@@ -1,6 +1,5 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { UserOutPutDTO } from '../../dto/user/userOutput.dto';
 import { User } from '../../entitys/user.entity';
 
 @Injectable()
@@ -14,7 +13,7 @@ export class CreateUser {
     email: string,
     password: string,
     activationToken: string,
-  ): Promise<UserOutPutDTO> {
+  ): Promise<User> {
     const userExist = await this.userRepository.findOne({
       email,
     });

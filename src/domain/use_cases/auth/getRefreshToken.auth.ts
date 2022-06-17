@@ -5,10 +5,12 @@ import { UpdateRefreshToken } from '../user/updateRefreshToken.user';
 
 @Injectable()
 export class GetRefreshToken {
-  constructor(private readonly updateRt: UpdateRefreshToken) {}
+  constructor(
+    private readonly updateRt: UpdateRefreshToken,
+  ) {}
 
   async call(user: User) {
-    const { id } = user;
+     const { id } = user
     const refreshToken = randtoken.generate(16);
 
     const expirydate = new Date();
