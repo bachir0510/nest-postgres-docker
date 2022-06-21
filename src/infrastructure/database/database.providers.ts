@@ -11,7 +11,7 @@ export const databaseProviders = [
         port: 5432,
         username: 'postgres',
         password: 'postgres',
-        database: 'postgres',
+        database: 'school_DB',
         entities: [path.resolve(__dirname + '/../../**/*.entity{.ts,.js}')],
         synchronize: true,
       });

@@ -1,6 +1,6 @@
- import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { User } from '../../entitys/user.entity';
+import { User } from '../../entitiy/user.entity';
 
 @Injectable()
 export class UpdateRefreshToken {
@@ -11,7 +11,7 @@ export class UpdateRefreshToken {
   async call(refreshToken: string, id: string, refreshtokenexpires) {
     await this.userRepository.update(id, {
       refreshtoken: refreshToken,
-      refreshtokenexpires
+      refreshtokenexpires,
     });
   }
 }

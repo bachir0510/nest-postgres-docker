@@ -1,6 +1,6 @@
 import { Connection, Repository } from 'typeorm';
 import { CreateStudentDTO } from '../../../src/domain/dto/student/createStudent.dto';
-import { Student } from '../../../src/domain/entities/student.entity';
+import { Student } from '../../../src/domain/entitiy/student.entity';
 import { CreateStudent } from '../../../src/domain/use_cases/student';
 import { mockCreateStudentDto, mockStudentEntity } from '../../studentData';
 import { testsAppModule } from '../../test.app.module.factory';

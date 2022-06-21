@@ -6,7 +6,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
 import { hash } from 'bcryptjs';
 
 @Entity()
@@ -43,12 +42,14 @@ export class User {
   })
   activationToken: string;
 
-  @Column()
-  @Exclude()
+  @Column({
+    nullable: true,
+  })
   refreshtoken: string;
 
-  @Column()
-  @Exclude()
+  @Column({
+    nullable: true,
+  })
   refreshtokenexpires: string;
 
   @CreateDateColumn()

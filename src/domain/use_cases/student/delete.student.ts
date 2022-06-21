@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Student } from '../../entities/student.entity';
+import { GetStudentOutputDTO } from '../../dto/student/getAllOutput.dto';
+import { Student } from '../../entitiy/student.entity';
 
 @Injectable()
 export class DeleteStudent {
@@ -9,7 +10,7 @@ export class DeleteStudent {
     private readonly studentRepository: Repository<Student>,
   ) {}
 
-  async call(id: number): Promise<Student> {
+  async call(id: number): Promise<GetStudentOutputDTO> {
     const student: Student = await this.studentRepository.findOne(id);
     return this.studentRepository.remove(student);
   }

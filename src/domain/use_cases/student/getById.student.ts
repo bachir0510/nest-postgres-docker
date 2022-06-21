@@ -1,20 +1,13 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { GetStudentOutputDTO } from '../../dto/student/getAllOutput.dto';
-=======
->>>>>>> parent of caf4406 (feat: format)
-import { Student } from '../../entitys/student.entity';
-=======
-import { Student } from '../../entities/student.entity';
->>>>>>> develop
+import { Inject, Injectable } from "@nestjs/common";
+import { Repository } from "typeorm";
+import { GetStudentOutputDTO } from "../../dto/student/getAllOutput.dto";
+import { Student } from "../../entitiy/student.entity";
 
 @Injectable()
 export class GetByIdStudent {
   constructor(
     @Inject(Student.name)
-    private readonly studentRepository: Repository<Student>,
+    private readonly studentRepository: Repository<GetStudentOutputDTO>,
   ) {}
 
   async call(id: number) {

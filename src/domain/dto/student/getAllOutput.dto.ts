@@ -1,7 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class CreateStudentDTO {
+export class GetStudentOutputDTO {
+  @ApiProperty({
+    description: 'Id',
+    type: String,
+  })
+  @IsOptional()
+  @IsNumber()
+  id: number;
+
   @ApiProperty({
     description: 'Nia',
     type: String,
@@ -43,7 +51,7 @@ export class CreateStudentDTO {
   group: string;
 
   @ApiProperty({
-    description: 'Class Group',
+    description: 'ClassGroup',
     type: String,
   })
   @IsOptional()
