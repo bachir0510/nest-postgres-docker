@@ -1,3 +1,3 @@
-export { LoginUser } from './login.user';
-export { RegisterUser } from './register.user';
-export { GetRefreshToken } from './getRefreshToken.auth';
+export {RegisterUser} from "./resgister.auth"
+export {LoginUser} from "./login.auth"
+export {GenerateRefreshToken} from './generateRefreshToken.auth'

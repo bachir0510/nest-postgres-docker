@@ -7,50 +7,29 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { hash } from 'bcryptjs';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('increment')
-  id: string;
+  id: number;
 
-  @Column({
-    type: 'varchar',
-  })
+  @Column({ length: 25 })
   userName: string;
 
-  @Column({
-    type: 'varchar',
-    length: 150,
-  })
+  @Column({ length: 100 })
   email: string;
 
-  @Column({
-    type: 'varchar',
-    length: 100,
-  })
+  @Column({ length: 100 })
   password: string;
 
-  @Column({
-    type: 'boolean',
-    default: false,
-  })
-  active: boolean;
+  @Column({ nullable: true })
+  @Exclude()
+  refreshtoken:string;
 
-  @Column({
-    type: 'uuid',
-    unique: true,
-  })
-  activationToken: string;
-
-  @Column({
-    nullable: true,
-  })
-  refreshtoken: string;
-
-  @Column({
-    nullable: true,
-  })
-  refreshtokenexpires: string;
+  @Column({ nullable: true })
+  @Exclude()
+  refreshtokenexpires:string;
 
   @CreateDateColumn()
   createdOn: Date;

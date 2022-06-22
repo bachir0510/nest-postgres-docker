@@ -4,14 +4,15 @@ import {
   Delete,
   Get,
   Param,
+  Post,
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { CreateUserDTO } from '../../../../domain/dto/user/createUser.dto';
 import { UpdateUserDTO } from '../../../../domain/dto/user/updateUser.dto';
 import { UserOutPutDTO } from '../../../../domain/dto/user/userOutput.dto';
-import { User } from '../../../../domain/entitiy/user.entity';
-import { JwtAuthGuard } from '../../../../domain/guards/jwtAuth.guard';
+import { User } from '../../../../domain/entity/user.entity';
 import {
   GetByIdUser,
   GetUsers,
@@ -24,15 +25,19 @@ import {
 @Controller('user')
 export class UserController {
   constructor(
+    private readonly createUser: CreateUser,
     private readonly getAllUsers: GetUsers,
     private readonly getByIdUsers: GetByIdUser,
     private readonly updateUser: UpdateUser,
     private readonly deleteUser: DeleteUser,
-    private readonly createUser: CreateUser,
   ) {}
 
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
+  
+ @Post()
+ async create(@Body() dto: CreateUserDTO ): Promise<UserOutPutDTO>{
+  return this.createUser.call(dto)
+ }
+
   @Get()
   @ApiOperation({
     description: 'Return all user',
@@ -41,8 +46,7 @@ export class UserController {
     return this.getAllUsers.call();
   }
 
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
+  
   @Get(':id')
   @ApiOperation({
     description: 'Return user by id',
@@ -51,8 +55,7 @@ export class UserController {
     return this.getByIdUsers.call(id);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
+  
   @Put(':id')
   @ApiOperation({
     description: 'Update user by id',
@@ -61,8 +64,7 @@ export class UserController {
     return this.updateUser.call(id, userDto);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
+  
   @Delete(':id')
   @ApiOperation({
     description: 'Delete user by id',

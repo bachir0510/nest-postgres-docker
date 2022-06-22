@@ -1,27 +1,16 @@
 version: '3.9'
+
 services:
   db:
-    image: postgres
+    image: postgres:alpine
+    container_name: app-postgres-docker
     restart: always
-    container_name: pg_container
-    environment:
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - /var/lib/postgresql/data
     ports:
-    - 5432:5432
-
-  pgadmin:
-   image: dpage/pgadmin4
-   container_name: pgadmin
-   restart: always
-   environment:
-     PGADMIN_DEFAULT_EMAIL: admin@nestjs.com
-     PGADMIN_DEFAULT_PASSWORD: test
-     PGADMIN_DEFAULT_PORT: 80
-   ports:
-   - 8080:80
-   volumes:
-   - /var/lib/pgadmin
-   depends_on: 
-   - db
+     - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: database_app
+    volumes:
+      # copy the sql script to create database
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql

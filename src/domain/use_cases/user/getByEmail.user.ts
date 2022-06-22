@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { User } from '../../entitiy/user.entity';
+import { User } from '../../entity/user.entity';
 
 @Injectable()
 export class GetByEmail {
@@ -8,7 +8,7 @@ export class GetByEmail {
     @Inject(User.name) private readonly userRepository: Repository<User>,
   ) {}
 
-  async call(email: string): Promise<User> {
+  async call(email: string) {
     return await this.userRepository.findOne({ email });
   }
 }

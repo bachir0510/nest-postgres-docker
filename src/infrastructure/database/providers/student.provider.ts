@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { Student } from '../../../domain/entitiy/student.entity';
+import { Student } from '../../../domain/entity/student.entity';
 
 export const studentProvider = [
   {

@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { User } from '../../../domain/entitiy/user.entity';
+import { User } from '../../../domain/entity/user.entity';
 
 export const userProvider = [
   {
@@ -8,3 +8,5 @@ export const userProvider = [
     inject: ['DATABASE_CONNECTION'],
   },
 ];
+
+

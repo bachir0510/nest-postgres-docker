@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { GetStudentOutputDTO } from "../../dto/student/getAllOutput.dto";
-import { Student } from "../../entitiy/student.entity";
+import { Student } from "../../entity/student.entity";
 
 @Injectable()
 export class GetByIdStudent {

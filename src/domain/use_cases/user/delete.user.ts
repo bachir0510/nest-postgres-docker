@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { UserOutPutDTO } from '../../dto/user/userOutput.dto';
-import { User } from '../../entitiy/user.entity';
+import { User } from '../../entity/user.entity';
 
 @Injectable()
 export class DeleteUser {
