@@ -4,6 +4,8 @@ import * as dotenv from 'dotenv';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
+const URL_SWAGGER = 'api/v1/docs/'
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -15,9 +17,10 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
   const documentV1 = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('doc', app, documentV1);
+  SwaggerModule.setup(URL_SWAGGER, app, documentV1);
   Logger.log('Swagger configured');
 
-  await app.listen(3000);
+  await app.listen(AppModule.port);
+  Logger.log(`Server start on port: ${AppModule.port}`);
 }
 bootstrap();
