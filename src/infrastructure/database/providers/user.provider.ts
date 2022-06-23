@@ -8,5 +8,3 @@ export const userProvider = [
     inject: ['DATABASE_CONNECTION'],
   },
 ];
-
-

@@ -25,11 +25,11 @@ export class User {
 
   @Column({ nullable: true })
   @Exclude()
-  refreshtoken:string;
+  refreshtoken: string;
 
   @Column({ nullable: true })
   @Exclude()
-  refreshtokenexpires:string;
+  refreshtokenexpires: string;
 
   @CreateDateColumn()
   createdOn: Date;

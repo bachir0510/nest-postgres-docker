@@ -1,8 +1,8 @@
 import { Connection, Repository } from 'typeorm';
-import { Student } from '../../../src/domain/entitiy/student.entity';
-import { GetStudents } from '../../../src/domain/use_cases/student';
-import { mockStudentEntity } from '../../studentData';
-import { testsAppModule } from '../../test.app.module.factory';
+import { Student } from '../../src/domain/entity/student.entity';
+import { GetStudents } from '../../src/domain/use_cases/student';
+import { mockStudentEntity } from '../studentData';
+import { testsAppModule } from '../test.app.module.factory';
 
 describe('GetStudents', () => {
   let database: Connection;

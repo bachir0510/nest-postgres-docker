@@ -11,7 +11,7 @@ export class CreateUser {
   ) {}
 
   async call(userDto: CreateUserDTO): Promise<UserOutPutDTO> {
-    const {email} = userDto
+    const { email } = userDto;
     const userExist = await this.userRepository.findOne({
       email,
     });

@@ -6,13 +6,13 @@ import {
   Param,
   Post,
   Put,
-  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserDTO } from '../../../../domain/dto/user/createUser.dto';
 import { UpdateUserDTO } from '../../../../domain/dto/user/updateUser.dto';
 import { UserOutPutDTO } from '../../../../domain/dto/user/userOutput.dto';
 import { User } from '../../../../domain/entity/user.entity';
+
 import {
   GetByIdUser,
   GetUsers,
@@ -32,11 +32,10 @@ export class UserController {
     private readonly deleteUser: DeleteUser,
   ) {}
 
-  
- @Post()
- async create(@Body() dto: CreateUserDTO ): Promise<UserOutPutDTO>{
-  return this.createUser.call(dto)
- }
+  @Post()
+  async create(@Body() dto: CreateUserDTO): Promise<UserOutPutDTO> {
+    return this.createUser.call(dto);
+  }
 
   @Get()
   @ApiOperation({
@@ -46,7 +45,6 @@ export class UserController {
     return this.getAllUsers.call();
   }
 
-  
   @Get(':id')
   @ApiOperation({
     description: 'Return user by id',
@@ -55,7 +53,6 @@ export class UserController {
     return this.getByIdUsers.call(id);
   }
 
-  
   @Put(':id')
   @ApiOperation({
     description: 'Update user by id',
@@ -64,7 +61,6 @@ export class UserController {
     return this.updateUser.call(id, userDto);
   }
 
-  
   @Delete(':id')
   @ApiOperation({
     description: 'Delete user by id',

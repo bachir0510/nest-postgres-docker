@@ -1,5 +1,6 @@
 import {
   Body,
+  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -19,7 +20,7 @@ export class LoginUser {
     private readonly generateRt: GenerateRefreshToken,
     private readonly jwt: JwtService,
   ) {}
-  async call(@Body() userDto: LoginDto): Promise<LoginOutputDto>{
+  async call(@Body() userDto: LoginDto): Promise<LoginOutputDto> {
     const { email, password } = userDto;
 
     const user = await this.getByEmail.call(email);

@@ -20,7 +20,20 @@ import { RegisterUser, LoginUser, GenerateRefreshToken } from './';
     DatabaseModule,
     UserModule,
   ],
-  providers: [...userProvider, RegisterUser, LoginUser, GenerateRefreshToken, JwtStrategy, JwtRefreshStrategy],
-  exports: [RegisterUser, LoginUser, GenerateRefreshToken, JwtStrategy, JwtRefreshStrategy]
+  providers: [
+    ...userProvider,
+    RegisterUser,
+    LoginUser,
+    GenerateRefreshToken,
+    JwtStrategy,
+    JwtRefreshStrategy,
+  ],
+  exports: [
+    RegisterUser,
+    LoginUser,
+    GenerateRefreshToken,
+    JwtStrategy,
+    JwtRefreshStrategy,
+  ],
 })
 export class AuthModule {}
