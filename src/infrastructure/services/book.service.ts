@@ -1,20 +1,11 @@
-import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import axios from "axios";
-import { BookAdapter } from './adapter/book.adapter';
-import { IBook } from './interface/book.interface';
-
+import { BookClient } from './book.client';
 
 @Injectable()
 export class BookService {
-  constructor(private readonly http: HttpService) {}
+  constructor(private readonly getBook: BookClient) {}
 
-  async getCategorys(): Promise<IBook> {
-    const url = 'https://api.itbook.store/1.0/new'
-    const urlOnenLibra = 'https://www.etnassoft.com/api/v1/get/?category=libros'
-    const response = await (await axios.get(url)).data
-    
-    console.log(response);
-    return BookAdapter.maperUserResponse(response)
+  async getCategorys() {
+    return this.getBook.get();
   }
 }

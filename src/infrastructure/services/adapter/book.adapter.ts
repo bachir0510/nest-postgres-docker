@@ -6,8 +6,6 @@ export class BookAdapter {
   static maperUserResponse(data): IBook {
     return {
       id: data.id,
-    
-      
     };
   }
 }

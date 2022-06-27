@@ -10,6 +10,11 @@ import { UserController } from './v1/user/user.constroller';
 
 @Module({
   imports: [BookModule, StudentModule, UserModule, AuthModule],
-  controllers: [BookController, StudentController, UserController, AuthController],
+  controllers: [
+    BookController,
+    StudentController,
+    UserController,
+    AuthController,
+  ],
 })
 export class ControllerV1Module {}

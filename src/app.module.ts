@@ -7,8 +7,10 @@ import { DatabaseModule } from './infrastructure/database/database.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true}),
-    DatabaseModule, ControllerV1Module],
+    ConfigModule.forRoot({ isGlobal: true }),
+    DatabaseModule,
+    ControllerV1Module,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

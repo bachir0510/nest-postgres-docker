@@ -1,3 +1,3 @@
-export interface IBook{
-   id: string,
+export interface IBook {
+  id: string;
 }
