@@ -20,12 +20,14 @@ export class BookClient {
       },
     });
 
-    const request: AxiosResponse | void = await new_instance({
+    const request: AxiosResponse = await new_instance({
       method: 'get',
       url: path,
-    }).catch((e) => console.log(e));
+    })
+      .then((request) => request.data)
+      .catch((e) => console.log(e));
     console.log(request);
 
-    return BookAdapter.maperUserResponse(request);
+    return BookAdapter.maperUserResponse(request.data);
   }
 }
