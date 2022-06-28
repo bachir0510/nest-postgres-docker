@@ -1,3 +1,8 @@
+import { ICategorie } from './categorie.interface';
+
 export interface IBook {
-  id: string;
+  id: number;
+  title: string;
+  author: string;
+  categories: ICategorie[];
 }
