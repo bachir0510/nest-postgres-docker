@@ -12,7 +12,7 @@ export class BookClient {
     const host = 'http://www.etnassoft.com/api/v1/';
     const path = '/get?category=libros';
 
-    const new_instance = axios.create({
+    const newInstance = axios.create({
       baseURL: host,
       timeout: 10000,
       headers: {
@@ -20,13 +20,11 @@ export class BookClient {
       },
     });
 
-    const request: AxiosResponse = await new_instance({
+    const request: AxiosResponse = await newInstance({
       method: 'get',
       url: path,
-    })
-      .then((request) => request.data)
-      .catch((e) => console.log(e));
-    console.log(request);
+    });
+    console.log(request.data);
 
     return BookAdapter.maperUserResponse(request.data);
   }
