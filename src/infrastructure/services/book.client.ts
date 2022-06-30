@@ -1,14 +1,14 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import axios, { AxiosResponse } from 'axios';
+import { Book } from '../../domain/entity/book.entity';
 import { BookAdapter } from './adapter/book.adapter';
-import { IBook } from './interface/book.interface';
 
 @Injectable()
 export class BookClient {
   constructor(private readonly http: HttpService) {}
 
-  async get(): Promise<IBook> {
+  async get(): Promise<Book[]> {
     const host = 'http://www.etnassoft.com/api/v1/';
     const path = '/get?category=libros';
 
@@ -25,7 +25,6 @@ export class BookClient {
       url: path,
     });
     console.log(request.data);
-
-    return BookAdapter.maperUserResponse(request.data);
+    return BookAdapter.mapperBookResponse(request.data);
   }
 }
