@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { Book } from '../../domain/entity/book.entity';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Book } from '../../../domain/entity/book.entity';
 import { BookAdapter } from './adapter/book.adapter';
 import { BookClient } from './book.client';
 
@@ -12,6 +12,10 @@ export class BookService {
   async getCategorys(url: string): Promise<Book[]> {
     const result = await this.client.get(path);
 
-    return BookAdapter.mapperBookResponse(result.data);
+    if (result && result.data && !result.data.error) {
+      return BookAdapter.mapperBookResponse(result.data);
+    } else {
+      throw new UnauthorizedException('Error getting identifiers ');
+    }
   }
 }

@@ -1,9 +1,9 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { HttpConfigService } from '../../domain/config/http.config';
-import { BookClient } from './book.client';
+import { BookClient } from './book/book.client';
 import { BookConfig } from './book.config';
-import { BookService } from './book.service';
+import { BookService } from './book/book.service';
 
 @Module({
   imports: [

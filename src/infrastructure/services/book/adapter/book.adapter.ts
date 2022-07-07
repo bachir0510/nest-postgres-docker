@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Book } from '../../../domain/entity/book.entity';
-import { Category } from '../../../domain/entity/category';
-import { IBookResponse } from '../book/interface/bookResponse.interface';
+import { Book } from '../../../../domain/entity/book.entity';
+import { Category } from '../../../../domain/entity/category';
+import { IBookResponse } from '../interface/bookResponse.interface';
 
 @Injectable()
 export class BookAdapter {

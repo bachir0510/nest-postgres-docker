@@ -1,5 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { BookDTO } from '../../../../domain/dto/book/book.dto';
+import { GetBookInputDto } from '../../../../domain/dto/book/getBook.dto';
 import { GetBookApi } from '../../../../domain/use_cases/book/getApi.book';
 
 @ApiTags('books')
@@ -11,7 +13,7 @@ export class BookController {
   @ApiOperation({
     description: 'Return Books from Api',
   })
-  async findAll(url: string) {
+  async findAll(@Query() input: GetBookInputDto, url): Promise<BookDTO[]> {
     return await this.getBook.call(url);
   }
 }
