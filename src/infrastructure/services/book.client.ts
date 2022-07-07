@@ -1,19 +1,14 @@
-import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import axios, { AxiosResponse } from 'axios';
-import { BookAdapter } from './adapter/book.adapter';
-import { IBook } from './interface/book.interface';
+import { BookConfig } from './book.config';
 
 @Injectable()
 export class BookClient {
-  constructor(private readonly http: HttpService) {}
+  constructor(private readonly bookConfig: BookConfig) {}
 
-  async get(): Promise<IBook> {
-    const host = 'http://www.etnassoft.com/api/v1/';
-    const path = '/get?category=libros';
-
+  async get(url: string) {
     const newInstance = axios.create({
-      baseURL: host,
+      baseURL: this.bookConfig.bookUrl,
       timeout: 10000,
       headers: {
         Accept: 'application/json',
@@ -22,10 +17,8 @@ export class BookClient {
 
     const request: AxiosResponse = await newInstance({
       method: 'get',
-      url: path,
+      url: url,
     });
-    console.log(request.data);
-
-    return BookAdapter.maperUserResponse(request.data);
+    return request;
   }
 }

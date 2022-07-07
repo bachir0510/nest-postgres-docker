@@ -5,7 +5,7 @@ import { BookService } from '../../../infrastructure/services/book.service';
 export class GetBookApi {
   constructor(private readonly bookService: BookService) {}
 
-  async call(): Promise<any> {
-    return await this.bookService.getCategorys();
+  async call(url: string): Promise<any> {
+    return await this.bookService.getCategorys(url);
   }
 }

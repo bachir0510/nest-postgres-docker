@@ -2,7 +2,7 @@ import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { HttpConfigService } from '../../domain/config/http.config';
 import { BookClient } from './book.client';
-import { BookModule } from './book.module';
+import { BookConfig } from './book.config';
 import { BookService } from './book.service';
 
 @Module({
@@ -11,7 +11,7 @@ import { BookService } from './book.service';
       useClass: HttpConfigService,
     }),
   ],
-  exports: [BookService, BookClient],
-  providers: [BookService, BookClient],
+  exports: [BookService, BookClient, BookConfig],
+  providers: [BookService, BookClient, BookConfig],
 })
 export class ServiceModule {}

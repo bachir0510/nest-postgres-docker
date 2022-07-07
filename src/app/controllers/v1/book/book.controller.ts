@@ -11,7 +11,7 @@ export class BookController {
   @ApiOperation({
     description: 'Return Books from Api',
   })
-  async findAll() {
-    return await this.getBook.call();
+  async findAll(url: string) {
+    return await this.getBook.call(url);
   }
 }
