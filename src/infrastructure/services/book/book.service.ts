@@ -3,13 +3,13 @@ import { Book } from '../../../domain/entity/book.entity';
 import { BookAdapter } from './adapter/book.adapter';
 import { BookClient } from './book.client';
 
-const path = '/get?category=libros';
+const path = '/get';
 
 @Injectable()
 export class BookService {
   constructor(private readonly client: BookClient) {}
 
-  async getCategorys(url: string): Promise<Book[]> {
+  async getCategorys(): Promise<Book[]> {
     const result = await this.client.get(path);
 
     if (result && result.data && !result.data.error) {

@@ -7,6 +7,6 @@ export class GetBookApi {
   constructor(private readonly bookService: BookService) {}
 
   async call(url: string): Promise<BookDTO[]> {
-    return await this.bookService.getCategorys(url);
+    return await this.bookService.getCategorys();
   }
 }

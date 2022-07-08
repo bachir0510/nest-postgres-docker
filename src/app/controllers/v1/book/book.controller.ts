@@ -13,7 +13,7 @@ export class BookController {
   @ApiOperation({
     description: 'Return Books from Api',
   })
-  async findAll(@Query() input: GetBookInputDto, url): Promise<BookDTO[]> {
-    return await this.getBook.call(url);
+  async findAll(@Query() input: GetBookInputDto): Promise<BookDTO[]> {
+    return await this.getBook.call(input.category);
   }
 }
