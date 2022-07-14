@@ -14,6 +14,7 @@ export class BookController {
     description: 'Return Books from Api',
   })
   async findAll(@Query() input: GetBookInputDto): Promise<BookDTO[]> {
-    return await this.getBook.call(input.category);
+    
+    return await this.getBook.call(input);
   }
 }
