@@ -7,7 +7,7 @@ import { GetBookInputDto } from '../../dto/book/getBook.dto';
 export class GetBookApi {
   constructor(private readonly bookService: BookService) {}
 
-  async call(input:GetBookInputDto): Promise<BookDTO[]> {
+  async call(input: GetBookInputDto): Promise<BookDTO[]> {
     return await this.bookService.getCategorys(input);
   }
 }

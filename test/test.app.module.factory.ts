@@ -10,9 +10,9 @@ import {
 } from '@nestjs/common';
 import * as ContextStore from 'request-context';
 import { ControllerV1Module } from '../src/app/controllers/controller.v1.module';
-import { databaseProvidersTest } from './intrastricture/database.providers';
 import { ErrorFilter } from '../src/app/filters/error.filter';
 import { ContextService } from '../src/app/logging';
+import { databaseProvidersTest } from './infrastructure/database.providers';
 
 interface ITestsAppModule {
   mulesoftClientToUse?: any;

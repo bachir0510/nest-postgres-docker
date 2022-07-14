@@ -7,6 +7,6 @@ export class BookConfig {
 
   constructor() {
     this.bookUrl = 'http://www.etnassoft.com/api/v1/';
-    this.bookPath = '/get'
+    this.bookPath = '/get';
   }
 }

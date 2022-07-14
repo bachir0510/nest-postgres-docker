@@ -5,17 +5,14 @@ import { BookConfig } from '../book.config';
 import { BookAdapter } from './adapter/book.adapter';
 import { BookClient } from './book.client';
 
-
-
 @Injectable()
 export class BookService {
   constructor(
     private readonly client: BookClient,
-    private readonly bookConfig: BookConfig
-    ) {}
+    private readonly bookConfig: BookConfig,
+  ) {}
 
-  async getCategorys(input:GetBookInputDto): Promise<Book[]> {
-    
+  async getCategorys(input: GetBookInputDto): Promise<Book[]> {
     const result = await this.client.get(this.bookConfig.bookPath, input);
 
     if (result && result.data && !result.data.error) {
