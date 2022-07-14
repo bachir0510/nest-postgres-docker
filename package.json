@@ -29,8 +29,11 @@
     "@nestjs/passport": "^8.2.2",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^5.2.1",
+    "@types/better-sqlite3": "^7.5.0",
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^7.6.1",
+    "cache-manager": "^4.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "cross-fetch": "^3.1.5",
@@ -81,14 +84,14 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/test/"
+    ],
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   }
