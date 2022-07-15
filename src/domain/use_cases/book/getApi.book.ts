@@ -13,7 +13,7 @@ export class GetBookApi {
     return this.modelBookDTO(books);
   }
 
-  modelBookDTO(response: IBook[]): BookDTO[] {
+  private modelBookDTO(response: IBook[]): BookDTO[] {
     return response.map((ibook) => {
       return {
         ...ibook,
