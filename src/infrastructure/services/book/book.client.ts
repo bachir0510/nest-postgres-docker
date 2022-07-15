@@ -6,13 +6,16 @@ import { BookConfig } from '../book.config';
 export class BookClient {
   constructor(private readonly bookConfig: BookConfig) {}
 
-  async get(url: string, queryParams?: object) {
+  async get(
+    url: string,
+    queryParams?: object,
+    contentType = 'application/json',
+  ) {
     const newInstance = axios.create({
       params: queryParams,
       baseURL: this.bookConfig.bookUrl,
-      timeout: 10000,
       headers: {
-        Accept: 'application/json',
+        Accept: contentType,
       },
     });
 

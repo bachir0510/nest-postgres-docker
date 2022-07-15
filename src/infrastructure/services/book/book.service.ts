@@ -1,9 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { GetBookInputDto } from '../../../domain/dto/book/getBook.dto';
-import { Book } from '../../../domain/entity/book.entity';
+import { Injectable } from '@nestjs/common';
 import { BookConfig } from '../book.config';
 import { BookAdapter } from './adapter/book.adapter';
 import { BookClient } from './book.client';
+import { IBook } from './interface/book.interface';
+import { IBookRequest } from './interface/bookRequest.interface';
 
 @Injectable()
 export class BookService {
@@ -12,13 +12,13 @@ export class BookService {
     private readonly bookConfig: BookConfig,
   ) {}
 
-  async getCategorys(input: GetBookInputDto): Promise<Book[]> {
+  async getCategories(input: IBookRequest): Promise<IBook[]> {
     const result = await this.client.get(this.bookConfig.bookPath, input);
 
     if (result && result.data && !result.data.error) {
       return BookAdapter.mapperBookResponse(result.data);
     } else {
-      throw new UnauthorizedException('Error getting identifiers ');
+      throw new Error('Error getting identifiers ');
     }
   }
 }

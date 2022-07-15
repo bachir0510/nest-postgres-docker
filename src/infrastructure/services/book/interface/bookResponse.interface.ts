@@ -1,4 +1,4 @@
-import { ICategory } from './categorie.interface';
+import { ICategoryResponse } from './categoryResponse.interface';
 
 export interface IBookResponse {
   ID: number;
@@ -6,5 +6,5 @@ export interface IBookResponse {
   author: string;
   content: string;
   url_details: string;
-  categories: ICategory[];
+  categories: ICategoryResponse[];
 }

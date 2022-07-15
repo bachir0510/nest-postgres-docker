@@ -1,14 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { Book } from '../../../../domain/entity/book.entity';
 import { Category } from '../../../../domain/entity/category';
+import { IBook } from '../interface/book.interface';
 import { IBookResponse } from '../interface/bookResponse.interface';
+import { ICategory } from '../interface/category.interface';
 
 @Injectable()
 export class BookAdapter {
-  static mapperBookResponse(data: IBookResponse[]): Book[] {
+  static mapperBookResponse(data: IBookResponse[]): IBook[] {
     return data.map((book) => {
       return {
         id: book.ID,
+        content: book.content,
+        urlDetails: book.url_details,
         author: book.author,
         title: book.title,
         categories: this.mapperCategory(book),
@@ -16,10 +20,10 @@ export class BookAdapter {
     });
   }
 
-  private static mapperCategory(book: IBookResponse): Category[] {
+  private static mapperCategory(book: IBookResponse): ICategory[] {
     return book.categories.map((category) => {
       return {
-        id: category.category_id,
+        categoryId: category.category_id,
         name: category.name,
         nicename: category.nicename,
       };

@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '../../config.service';
 
 @Injectable()
 export class BookConfig {
@@ -6,7 +7,7 @@ export class BookConfig {
   public bookPath: string;
 
   constructor() {
-    this.bookUrl = 'http://www.etnassoft.com/api/v1/';
+    this.bookUrl = ConfigService.get('BOOK_BASE_URL');
     this.bookPath = '/get';
   }
 }
