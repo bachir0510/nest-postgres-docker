@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
-export class GetBookInputDto {
+export class CatetoryInputDto {
   @ApiPropertyOptional({
     type: String,
     example: 'libros',

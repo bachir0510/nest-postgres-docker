@@ -1,7 +1,8 @@
 import { Connection } from 'typeorm';
-import { GetBookInputDto } from '../../../src/domain/dto/book/getBook.dto';
+import { CatetoryInputDto } from '../../../src/domain/dto/book/categoryInput.dto';
+import { CriteriaInputDto } from '../../../src/domain/dto/book/criteriaInput.dto';
 import { BookService } from '../../../src/infrastructure/services/book/book.service';
-import { mockBookEntity } from '../../bookDate';
+import { mockBookEntity, mockBookInterface } from '../../bookDate';
 import { testsAppModule } from '../../test.app.module.factory';
 
 describe('Book Client', () => {
@@ -23,12 +24,13 @@ describe('Book Client', () => {
 
   describe('Get Book', () => {
     it('should get Book by category', async () => {
-      const category: GetBookInputDto = {};
-      const data = [mockBookEntity];
+      const category: CatetoryInputDto = {};
+      const criteria: CriteriaInputDto = {};
+      const data = [mockBookInterface];
       jest
-        .spyOn(bookService, 'getCategorys')
+        .spyOn(bookService, 'getCategories')
         .mockImplementationOnce(() => Promise.resolve(data));
-      expect(await bookService.getCategorys(category)).toEqual(data);
+      expect(await bookService.getCategories(category, criteria)).toEqual(data);
     });
   });
 });

@@ -1,6 +1,7 @@
 import { Connection } from 'typeorm';
 import { BookController } from '../../src/app/controllers/v1/book/book.controller';
-import { GetBookInputDto } from '../../src/domain/dto/book/getBook.dto';
+import { CatetoryInputDto } from '../../src/domain/dto/book/categoryInput.dto';
+import { CriteriaInputDto } from '../../src/domain/dto/book/criteriaInput.dto';
 import { GetBookApi } from '../../src/domain/use_cases/book/getApi.book';
 import { mockBookEntity } from '../bookDate';
 import { testsAppModule } from '../test.app.module.factory';
@@ -27,12 +28,13 @@ describe('BookController', () => {
 
   describe('Get Book', () => {
     it('should get Book by category', async () => {
-      const category: GetBookInputDto = {};
+      const category: CatetoryInputDto = {};
+      const criteria: CriteriaInputDto = {};
 
       const findSpy = jest
         .spyOn(getBook, 'call')
         .mockImplementationOnce(() => Promise.resolve([mockBookEntity]));
-      const response = await bookController.findAll(category);
+      const response = await bookController.findAll(category, criteria);
       expect(response).toEqual([mockBookEntity]);
       expect(findSpy).toHaveBeenCalled();
     });
