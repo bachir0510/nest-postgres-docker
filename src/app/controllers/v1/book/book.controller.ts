@@ -4,7 +4,7 @@ import { BookDTO } from '../../../../domain/dto/book/book.dto';
 import { GetBookInputDto } from '../../../../domain/dto/book/getBook.dto';
 import { GetBookApi } from '../../../../domain/use_cases/book/getApi.book';
 
-@ApiTags('books')
+@ApiTags('Books')
 @Controller('book')
 export class BookController {
   constructor(private readonly getBook: GetBookApi) {}
@@ -14,6 +14,6 @@ export class BookController {
     description: 'Return Books from Api',
   })
   async findAll(@Query() input: GetBookInputDto): Promise<BookDTO[]> {
-    return await this.getBook.call(input);
+    return this.getBook.call(input);
   }
 }
