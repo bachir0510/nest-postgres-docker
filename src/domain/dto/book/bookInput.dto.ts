@@ -1,9 +1,15 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
-export class CriteriaInputDto {
+export class BookInputDto {
   @ApiPropertyOptional({
     type: String,
     example: 'libros',
+  })
+  category: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    example: 'most_viewed',
   })
   criteria?: string;
 }

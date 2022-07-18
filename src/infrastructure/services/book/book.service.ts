@@ -3,8 +3,7 @@ import { BookConfig } from '../book.config';
 import { BookAdapter } from './adapter/book.adapter';
 import { BookClient } from './book.client';
 import { IBook } from './interface/book.interface';
-import { ICategoryRequest } from './interface/categoryRequest.interface';
-import { ICriteriaRequest } from './interface/criteriaRequest.interface';
+import { IBookRequest } from './interface/bookRequest.interface';
 
 @Injectable()
 export class BookService {
@@ -13,13 +12,9 @@ export class BookService {
     private readonly bookConfig: BookConfig,
   ) {}
 
-  async getCategories(
-    categoryInput: ICategoryRequest,
-    criteriaInput: ICriteriaRequest,
-  ): Promise<IBook[]> {
+  async getCategories(bookRequest: IBookRequest): Promise<IBook[]> {
     const result = await this.client.get(this.bookConfig.bookPath, {
-      categoryInput,
-      criteriaInput,
+      bookRequest,
     });
 
     if (result && result.data && !result.data.error) {
