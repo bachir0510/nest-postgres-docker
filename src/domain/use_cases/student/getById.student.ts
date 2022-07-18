@@ -1,12 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Student } from '../../entities/student.entity';
+import { GetStudentOutputDTO } from '../../dto/student/getAllOutput.dto';
+import { Student } from '../../entity/student.entity';
 
 @Injectable()
 export class GetByIdStudent {
   constructor(
     @Inject(Student.name)
-    private readonly studentRepository: Repository<Student>,
+    private readonly studentRepository: Repository<GetStudentOutputDTO>,
   ) {}
 
   async call(id: number) {

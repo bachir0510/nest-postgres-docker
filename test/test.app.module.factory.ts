@@ -9,7 +9,7 @@ import {
   Module,
 } from '@nestjs/common';
 import * as ContextStore from 'request-context';
-import { ControllerV1Module } from '../src/app/controllers/v1/controller.v1.module';
+import { ControllerV1Module } from '../src/app/controllers/controller.v1.module';
 import { ErrorFilter } from '../src/app/filters/error.filter';
 import { ContextService } from '../src/app/logging';
 import { databaseProvidersTest } from './infrastructure/database.providers';

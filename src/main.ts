@@ -1,8 +1,8 @@
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import * as dotenv from 'dotenv';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
-import { Logger } from '@nestjs/common';
 
 const URL_SWAGGER = 'api/v1/docs/';
 
@@ -11,7 +11,8 @@ async function bootstrap() {
 
   dotenv.config();
   const options = new DocumentBuilder()
-    .setTitle('Students API')
+    .setTitle('School API')
+    .addBearerAuth()
     .setDescription('The Students API description')
     .setVersion('1.0')
     .build();

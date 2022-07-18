@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import * as MaskJson from 'mask-json';
 import * as objectTrim from 'object-trim';
-import { CustomLogger } from './custom_logger/customLogger.service';
+import { CustomLogger } from './custom_logger/custumLogger.service';
 import { ServerResponse } from 'http';
 
 const trim = (x) =>
